@@ -506,10 +506,12 @@ css <- ".nowrap {
 
 #Shiny app
 ui <- fluidPage(
-  
+  #Title and invitation for Shiny App
   navbarPage("Time Series of Surface Water Body in Aculeo Lake",
              #######################################################
              
+             #First tabPanel with a sidebarpanel composed by sliderInput, radio Buttons, download
+             #Button and at the mainpanel it is plot the data from the dataframe
              tabPanel("Area v/s Years",
                       sidebarLayout(position = "left",
                                     sidebarPanel(
@@ -524,6 +526,8 @@ ui <- fluidPage(
              ),
              #######################################################
              
+             #Second tabPanel with a sidebarpanel composed by sliderInput, radio Buttons
+             #and at the mainpanel it is plot a *.GIF image
              tabPanel("Timeseries representation in a GIF",
                       sidebarLayout(position = "left",
                                     sidebarPanel(
@@ -535,6 +539,8 @@ ui <- fluidPage(
              ),
              #######################################################
              
+             #Second tabPanel with a sidebarpanel composed by sliderInput, radio Buttons
+             #and at the mainpanel it is plot a *.png image
              tabPanel("Image for the Year and Type",
                       sidebarLayout(position = "left",
                                     sidebarPanel(
@@ -547,6 +553,8 @@ ui <- fluidPage(
              ),
              #######################################################
              
+             #Second tabPanel with a sidebarpanel composed by sliderInput, radio Buttons
+             #and at the mainpanel it is plot the dataframe created
              tabPanel("Table of Data",
                       sidebarLayout(position = "left",
                                     sidebarPanel(
@@ -654,12 +662,15 @@ server <- function(input, output, session) {
   #######################################################
   
   filtered_data <- reactive({
-    #
+    #A reactive function to filter the Table to plot and download it
     data <- my_df3 %>%
       filter(Year >= input$yearsInput3[1] & Year <= input$yearsInput3[2],
              Type == input$typeInput3)
   })
   
+  #######################################################
+  
+  #This is the function to render the table and order it
   output$table <- DT::renderDataTable({
     data <- filtered_data()
     datatable(data,  options = list(pageLength = length(my_years),
@@ -671,6 +682,7 @@ server <- function(input, output, session) {
   
   #######################################################
   
+  #Function to download the Table filtered before
   output$download_data <- downloadHandler(
     
     filename = paste("Aculeo_Lake_Data",".csv",sep=''),
