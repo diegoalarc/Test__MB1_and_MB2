@@ -383,6 +383,13 @@ for (i in 1:nrow(my_df3)){
   my_df3[i, 3] <- (round(as.numeric(my_df3[i, 3]), digits = 4))
 }
 
+# Create a final dataframe with information of Seasonal, Permanent and Total values
+# for the area of the water body for each year plot in the Table for Shiny App with the unit Km^2
+my_mat4 <- matrix(data = NA, nrow = (length(my_years)*3), ncol = 3)
+my_df4 <- data.frame(my_mat3,stringsAsFactors=FALSE)
+names(my_df4) <- c("Year", "Type", "Area")
+my_df4 <- rbind.data.frame(my_df,my_df1,my_df2)
+
 #######################################################
 # Units were placed in the data frame but cannot be displayed in the Shiny App table
 
@@ -393,8 +400,9 @@ if(!require(units)){
 }
 
 # Placement of units in the Area column corresponding to square Kilometers
-b <- data.frame(Area = set_units(as.numeric(my_df3[, 3]), K^2))
-my_df3[,3] <- rbind.data.frame(b)
+b <- data.frame(Area = set_units(as.numeric(my_df4[, 3]), K^2))
+my_df4[,3] <- rbind.data.frame(b)
+names(my_df4) <- c("Year", "Type", "Area [K^2]")
 
 #######################################################
 
@@ -416,11 +424,16 @@ if(!file.exists(paste0(reswd,"Seasonal.gif"))) {
   setwd("c:/Data/Seasonal_Water_Color/")
   # For-loop to create *.png files for Seasonal Water
   for (i in 1:dim(tmp_Stack1)[3]){
-    png(filename=paste0(names(tmp_Stack1)[i],".png"), width = 680, height = 600)
+    # Extract Country
+    Country <- substr(names_file[i], start=1, stop=5)
+    # Extract year of the data
+    yr <- substr(names_file[i], start=15, stop=18)
+    # Setting the name for the *.png image
+    png(filename=paste0(Country," Seasonal Aculeo Lagoon ",yr,".png"), width = 680, height = 600)
     # Plot of rasters reclassified data
     plot(tmp_Stack1[[i]],
-         main=names(tmp_Stack1)[i],
-         legend=FALSE,
+         main = paste0(Country," Seasonal Aculeo Lagoon ",yr),
+         legend = FALSE,
          col = c("green", "blue"),
          breaks=c(0,.000000000000000000001,1))
     maps::map.scale(x=-70.945, y=-33.865, relwidth=0.15, metric = TRUE, ratio=FALSE)  
@@ -443,12 +456,17 @@ if(!file.exists(paste0(reswd,"Permanent.gif"))) {
   # Set the folder where the *.png files will be created
   setwd("c:/Data/Permanent_Water_Color/")
   # For-loop to create *.png files for Permanent Water
-  for (i in 1:dim(tmp_Stack2)[3]){
-    png(filename=paste0(names(tmp_Stack2)[i],".png"), width = 680, height = 600)
+  for (i in 1:dim(tmp_Stack1)[3]){
+    # Extract Country
+    Country <- substr(names_file[i], start=1, stop=5)
+    # Extract year of the data
+    yr <- substr(names_file[i], start=15, stop=18)
+    # Setting the name for the *.png image
+    png(filename=paste0(Country," Permanent Aculeo Lagoon ",yr,".png"), width = 680, height = 600)
     # Plot of rasters reclassified data
     plot(tmp_Stack2[[i]],
-         main=names(tmp_Stack2)[i],
-         legend=FALSE,
+         main = paste0(Country," Permanent Aculeo Lagoon ",yr),
+         legend = FALSE,
          col = c("green", "blue"),
          breaks=c(0,.000000000000000000001,1))
     maps::map.scale(x=-70.945, y=-33.865, relwidth=0.15, metric = TRUE, ratio=FALSE)  
@@ -472,10 +490,15 @@ if(!file.exists(paste0(reswd,"Total.gif"))) {
   setwd("c:/Data/Total_Water_Color/")
   # For-loop to create *.png files for Total Water
   for (i in 1:dim(tmp_Stack3)[3]){
-    png(filename=paste0(names(tmp_Stack3)[i],".png"), width = 680, height = 600)
+    # Extract Country
+    Country <- substr(names_file[i], start=1, stop=5)
+    # Extract year of the data
+    yr <- substr(names_file[i], start=15, stop=18)
+    # Setting the name for the *.png image
+    png(filename=paste0(Country," Total Aculeo Lagoon ",yr,".png"), width = 680, height = 600)
     # Plot of rasters reclassified data
     plot(tmp_Stack3[[i]],
-         main=names(tmp_Stack3)[i],
+         main = paste0(Country," Total Aculeo Lagoon ",yr),
          legend=FALSE,
          col = c("green", "blue"),
          breaks=c(0,.000000000000000000001,1))
@@ -679,7 +702,7 @@ server <- function(input, output, session) {
     # Created the file name from the information of the radio Buttons in order to 
     # display the *.png image for an specific period of time and type of water body
     filename <- normalizePath(file.path('c:/Data',
-                                        paste(input$typeInput2,"_Water_Color/","Chile_",input$typeInput2,"_",input$yearsInput2, ".png", sep='')))
+                                        paste(input$typeInput2,"_Water_Color/","Chile ",input$typeInput2," Aculeo Lagoon ",input$yearsInput2, ".png", sep='')))
     
     # Return a list containing the filename and alt text
     list(src = filename,
@@ -690,7 +713,7 @@ server <- function(input, output, session) {
   
   filtered_data <- reactive({
     # A reactive function to filter the Table to plot and download it
-    data <- my_df3 %>%
+    data <- my_df4 %>%
       filter(Year >= input$yearsInput3[1] & Year <= input$yearsInput3[2],
              Type == input$typeInput3)
   })
