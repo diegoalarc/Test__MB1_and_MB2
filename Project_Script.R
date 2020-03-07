@@ -104,6 +104,9 @@ list.of.files <- list.files(fromFolder, pattern=c("^Chile_classes_(.*)_000000000
 # Copy the files to the toFolder  - THIS DOES NOT WORK WHILE EVERYTHING PRIOR HAS WORKED
 file.copy(file.path(fromFolder,list.of.files), toFolder, overwrite=TRUE)
 
+# Delete the directory "Data_Bruto"
+unlink("Data_Bruto")
+
 # Create the path where are all the *.tiff images we will use.
 Water_IMAGE_path <- "C:/Data/Zona_Study/"
 
@@ -164,37 +167,24 @@ for (i in 1:length(water_aculeo_raster)){
 #  crop_list[[i]] <- crop(tmp[[i]],STUDY_extent)
 #}
 
-# Create the vector with the name file
-names_file <- vector(mode="character")
+#Create a List of Raster Files
+Water <- list()
 
-# For-loop to obtain the name file for all the raster in one vector file
-# which will be used when the rasters file will be saved
+
+#For-loop to create a Raster Files with all the *.tiff images
 for (i in 1:length(crop_list)){
-  names_file[[i]] <- names(crop_list[[i]])
+  Water[[i]] <- brick(crop_list[[i]])
 }
-
-# Create a List of the brick
-brick_list <- list()
-
-# For-loop to create a brick of the crops areas from the raster files
-for (i in 1:length(crop_list)){
-  brick_list[[i]] <- brick(crop_list[[i]])
-}
-
 #######################################################
 
 # For-loop to create a brick of differents types of water
-for (i in 1:length(brick_list)){
+for (i in 1:length(Water)){
   
   # Create a List of differents types of water
   t_Seasonal <- list()
   t_Permanent <- list()
   t_water <- list()
-  water <- list()
-  
-  # Create a brick of water bodies
-  Water <- brick(brick_list[i])
-    
+
   # https://www.sdg661.app/data-products/data-downloads
   # Classifications 2000-2018. One file per year. This Yearly Seasonality Classification 
   # collection contains annula seasonality maps. Each file has one band with 3 possible values:
@@ -204,16 +194,16 @@ for (i in 1:length(brick_list)){
   # 3  Permanent water
     
   # The raster files will be classified according to what is indicated on the website  
-  t_Seasonal <- reclassify(Water, c(0, 1, NA, 1, 2, 1, 2, 3, NA))
+  t_Seasonal <- reclassify(Water[[i]], c(0, 1, NA, 1, 2, 1, 2, 3, NA))
   
   # Setting path for Seasonal Water
   setwd("C:/Data/Seasonal_Water/")
   
   # Extract Country
-  Country <- substr(names_file[i], start=1, stop=5)
+  Country <- substr(names(Water[[i]]), start=1, stop=5)
   
   # Extract year of the data
-  yr <- substr(names_file[i], start=15, stop=18)
+  yr <- substr(names(Water[[i]]), start=15, stop=18)
   
   # Save the Raster with a specific name
   s_list <- writeRaster(t_Seasonal, filename=paste0(Country," Seasonal Aculeo Lagoon ",yr), format='GTiff', overwrite=T)
@@ -222,7 +212,7 @@ for (i in 1:length(brick_list)){
   rm(t_Seasonal)
   
   # The raster files will be classified according to what is indicated on the website
-  t_Permanent <- reclassify(Water, c(0, 2, NA, 2, 3, 1))
+  t_Permanent <- reclassify(Water[[i]], c(0, 2, NA, 2, 3, 1))
   
   # Setting path for Permanent Water
   setwd("C:/Data/Permanent_Water/")
@@ -234,7 +224,7 @@ for (i in 1:length(brick_list)){
   rm(t_Permanent)
   
   # The raster files will be classified according to what is indicated on the website
-  t_water <- reclassify(Water, c(0, 1, NA, 1, 3, 1))
+  t_water <- reclassify(Water[[i]], c(0, 1, NA, 1, 3, 1))
   
   # Setting path for Total Water (Permanent + Seasonal)
   setwd("C:/Data/Total_Water/")
@@ -243,8 +233,11 @@ for (i in 1:length(brick_list)){
   s_list <- writeRaster(t_water, filename=paste0(Country," Total Aculeo Lagoon ",yr), format='GTiff', overwrite=T)
   
   # Remove lists
-  rm(Country,yr,t_water,water)
+  rm(t_water)
 }
+
+# Remove lists
+rm(Country,yr)
 
 #######################################################
 
@@ -413,9 +406,9 @@ if(!file.exists(paste0(reswd,"Seasonal.gif"))) {
   # For-loop to create *.png files for Seasonal Water
   for (i in 1:dim(tmp_Stack1)[3]){
     # Extract Country
-    Country <- substr(names_file[i], start=1, stop=5)
+    Country <- substr(names(Water[[i]]), start=1, stop=5)
     # Extract year of the data
-    yr <- substr(names_file[i], start=15, stop=18)
+    yr <- substr(names(Water[[i]]), start=15, stop=18)
     # Setting the name for the *.png image
     png(filename=paste0(Country," Seasonal Aculeo Lagoon ",yr,".png"), width = 680, height = 600)
     # Plot of rasters reclassified data
@@ -446,9 +439,9 @@ if(!file.exists(paste0(reswd,"Permanent.gif"))) {
   # For-loop to create *.png files for Permanent Water
   for (i in 1:dim(tmp_Stack1)[3]){
     # Extract Country
-    Country <- substr(names_file[i], start=1, stop=5)
+    Country <- substr(names(Water[[i]]), start=1, stop=5)
     # Extract year of the data
-    yr <- substr(names_file[i], start=15, stop=18)
+    yr <- substr(names(Water[[i]]), start=15, stop=18)
     # Setting the name for the *.png image
     png(filename=paste0(Country," Permanent Aculeo Lagoon ",yr,".png"), width = 680, height = 600)
     # Plot of rasters reclassified data
@@ -479,9 +472,9 @@ if(!file.exists(paste0(reswd,"Total.gif"))) {
   # For-loop to create *.png files for Total Water
   for (i in 1:dim(tmp_Stack3)[3]){
     # Extract Country
-    Country <- substr(names_file[i], start=1, stop=5)
+    Country <- substr(names(Water[[i]]), start=1, stop=5)
     # Extract year of the data
-    yr <- substr(names_file[i], start=15, stop=18)
+    yr <- substr(names(Water[[i]]), start=15, stop=18)
     # Setting the name for the *.png image
     png(filename=paste0(Country," Total Aculeo Lagoon ",yr,".png"), width = 680, height = 600)
     # Plot of rasters reclassified data
