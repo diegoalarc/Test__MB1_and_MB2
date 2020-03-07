@@ -135,7 +135,7 @@ for (i in 1:length(Water_all_IMAGE)){
 #  tmp <- append(tmp,water_aculeo_raster)  
 #}
 
-#STUDY_extent <- readOGR("C:/Users/JELG02/OneDrive/Uni-Wue/1er_Semestre/MB2_Introduction_to_Programming_and_Geostatistics/Final_Project/Study_Area.shp")
+#STUDY_extent <- readOGR("C:/Users/.shp")
 #STUDY_extent <- spTransform(STUDY_extent, crs(tmp[[1]]))
 
 #######################################################
