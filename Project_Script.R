@@ -16,10 +16,10 @@
 
 # To keep the created code in order, it is suggested to use the following package:
 # https://cran.r-project.org/web/packages/styler/styler.pdf
-if(!require(styler)){
-  install.packages("styler")
-  library(styler)
-}
+#if(!require(styler)){
+#  install.packages("styler")
+#  library(styler)
+#}
 
 # It is necessary to check if the packages are install in  RStudio
 if(!require(gganimate)){
