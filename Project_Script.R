@@ -105,7 +105,7 @@ list.of.files <- list.files(fromFolder, pattern=c("^Chile_classes_(.*)_000000000
 file.copy(file.path(fromFolder,list.of.files), toFolder, overwrite=TRUE)
 
 # Delete the directory "Data_Bruto"
-unlink("Data_Bruto")
+unlink("c:/Data/Data_Bruto", recursive = TRUE) 
 
 # Create the path where are all the *.tiff images we will use.
 Water_IMAGE_path <- "C:/Data/Zona_Study/"
