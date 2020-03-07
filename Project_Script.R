@@ -219,7 +219,7 @@ for (i in 1:length(brick_list)){
   s_list <- writeRaster(t_Seasonal, filename=paste0(Country," Seasonal Aculeo Lagoon ",yr), format='GTiff', overwrite=T)
   
   # Remove lists
-  rm(Country,yr,t_Seasonal)
+  rm(t_Seasonal)
   
   # The raster files will be classified according to what is indicated on the website
   t_Permanent <- reclassify(Water, c(0, 2, NA, 2, 3, 1))
@@ -227,29 +227,17 @@ for (i in 1:length(brick_list)){
   # Setting path for Permanent Water
   setwd("C:/Data/Permanent_Water/")
   
-  # Extract Country
-  Country <- substr(names_file[i], start=1, stop=5)
-  
-  # Extract year of the data
-  yr <- substr(names_file[i], start=15, stop=18)
-  
   # Save the Raster with a specific name
   s_list <- writeRaster(t_Permanent, filename=paste0(Country," Permanent Aculeo Lagoon ",yr), format='GTiff', overwrite=T)
   
   # Remove lists
-  rm(Country,yr,t_Permanent)
+  rm(t_Permanent)
   
   # The raster files will be classified according to what is indicated on the website
   t_water <- reclassify(Water, c(0, 1, NA, 1, 3, 1))
   
   # Setting path for Total Water (Permanent + Seasonal)
   setwd("C:/Data/Total_Water/")
-  
-  # Extract Country
-  Country <- substr(names_file[i], start=1, stop=5)
-  
-  # Extract year of the data
-  yr <- substr(names_file[i], start=15, stop=18)
   
   # Save the Raster with a specific name
   s_list <- writeRaster(t_water, filename=paste0(Country," Total Aculeo Lagoon ",yr), format='GTiff', overwrite=T)
