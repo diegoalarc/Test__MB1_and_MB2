@@ -54,6 +54,10 @@ if(!require(rgdal)){
   install.packages("rgdal")
   library(rgdal)
 }
+if(!require(devtools)){
+  install.packages("devtools", dependencies = TRUE)
+  library(devtools)
+}
 
 #######################################################
 
@@ -117,11 +121,26 @@ for (i in 1:length(Water_all_IMAGE)){
   water_aculeo_raster[[i]] <- raster(Water_all_IMAGE[i])
 }
 
-#Create an object with the coordenate
+#######################################################
 
 #In case you want to use a shape file, the following code would be useful:
+
+#Create a List of Raster Files
+#water_aculeo_raster <- list()
+#tmp <- list()
+
+#For-loop to create a Raster Files with all the *.tiff images
+#for (i in 1:length(Water_all_IMAGE)){ 
+#  water_aculeo_raster <- raster(Water_all_IMAGE[i])
+#  tmp <- append(tmp,water_aculeo_raster)  
+#}
+
 #STUDY_extent <- readOGR("C:/Users/JELG02/OneDrive/Uni-Wue/1er_Semestre/MB2_Introduction_to_Programming_and_Geostatistics/Final_Project/Study_Area.shp")
 #STUDY_extent <- spTransform(STUDY_extent, crs(tmp[[1]]))
+
+#######################################################
+
+#Create an object with the coordenate
 
 #Here it is create the replace of the shape file with a SpatialPolygons that has extent area as well
 x_coord <- c(-70.94622,  -70.87834)
@@ -142,7 +161,7 @@ for (i in 1:length(water_aculeo_raster)){
 }
 
 #For-loop to continue use a shape file, the following code would be useful:
-#for (i in 1:length(water_aculeo_raster)){
+#for (i in 1:length(tmp)){
 #  crop_list[[i]] <- crop(tmp[[i]],STUDY_extent)
 #}
 
@@ -165,70 +184,79 @@ for (i in 1:length(crop_list)){
 
 #######################################################
 
-#Create a List of differents types of water
-t_Seasonal <- list()
-t_Permanent <- list()
-t_water <- list()
-water <- list()
-
 #For-loop to create a brick of differents types of water
 for (i in 1:length(brick_list)){
-  Water <- brick(brick_list[i])  
-  #The raster files will be classified according to what is indicated on the website
+  
+  #Create a List of differents types of water
+  t_Seasonal <- list()
+  t_Permanent <- list()
+  t_water <- list()
+  water <- list()
+  
+  #Create a brick of water bodies
+  Water <- brick(brick_list[i])
+    
   #https://www.sdg661.app/data-products/data-downloads
-  #Classifications 2000-2018. One file per year. This Yearly Seasonality Classification collection contains annula seasonality maps. Each file has one band with 4 possible values:
+  #Classifications 2000-2018. One file per year. This Yearly Seasonality Classification 
+  #collection contains annula seasonality maps. Each file has one band with 3 possible values:
   #Values  Description data
   #1  Not water (i.e. Land)
   #2  Seasonal water
   #3  Permanent water
-  t_Seasonal[[i]] <- reclassify(Water, c(0, 1, NA, 1, 2, 1, 2, 3, NA))
-  t_Permanent[[i]] <- reclassify(Water, c(0, 2, NA, 2, 3, 1))
-  t_water[[i]] <- reclassify(Water, c(0, 1, NA, 1, 3, 1))
-}
-
-#In orther to save the data it is necessery to set the different path where it will be save
-setwd("C:/Data/Seasonal_Water/")#Setting path for Seasonal Water
-
-#For-loop to save all the *.tiff images with a certain 
-#name from the names_file vector
-for (i in 1:length(t_Seasonal)){
+    
+  #The raster files will be classified according to what is indicated on the website  
+  t_Seasonal <- reclassify(Water, c(0, 1, NA, 1, 2, 1, 2, 3, NA))
+  
+  #Setting path for Seasonal Water
+  setwd("C:/Data/Seasonal_Water/")
+  
   #Extract Country
-  Country <- substr(names_file[i], start=1, stop=6)
+  Country <- substr(names_file[i], start=1, stop=5)
+  
   #Extract year of the data
   yr <- substr(names_file[i], start=15, stop=18)
+  
   #Save the Raster with a specific name
-  s_list <- writeRaster(t_Seasonal[[i]], filename=paste0(Country,"Seasonal_",yr), format='GTiff', overwrite=T) 
-  rm(Country,yr)
-}
-
-
-setwd("C:/Data/Permanent_Water/")#Setting path for Permanent Water
-
-#For-loop to save all the *.tiff images with a certain 
-#name from the names_file vector
-for (i in 1:length(t_Permanent)){
+  s_list <- writeRaster(t_Seasonal, filename=paste0(Country," Seasonal Aculeo Lagoon ",yr), format='GTiff', overwrite=T)
+  
+  #Remove lists
+  rm(Country,yr,t_Seasonal)
+  
+  #The raster files will be classified according to what is indicated on the website
+  t_Permanent <- reclassify(Water, c(0, 2, NA, 2, 3, 1))
+  
+  #Setting path for Permanent Water
+  setwd("C:/Data/Permanent_Water/")
+  
   #Extract Country
-  Country <- substr(names_file[i], start=1, stop=6)
+  Country <- substr(names_file[i], start=1, stop=5)
+  
   #Extract year of the data
   yr <- substr(names_file[i], start=15, stop=18)
+  
   #Save the Raster with a specific name
-  s_list <- writeRaster(t_Permanent[[i]], filename=paste0(Country,"Permanent_",yr), format='GTiff', overwrite=T) 
-  rm(Country,yr)
-}
-
-
-setwd("C:/Data/Total_Water/")#Setting path for Total Water (Permanent + Seasonal)
-
-#For-loop to save all the *.tiff images with a certain 
-#name from the names_file vector
-for (i in 1:length(t_water)){
+  s_list <- writeRaster(t_Permanent, filename=paste0(Country," Permanent Aculeo Lagoon ",yr), format='GTiff', overwrite=T)
+  
+  #Remove lists
+  rm(Country,yr,t_Permanent)
+  
+  #The raster files will be classified according to what is indicated on the website
+  t_water <- reclassify(Water, c(0, 1, NA, 1, 3, 1))
+  
+  #Setting path for Total Water (Permanent + Seasonal)
+  setwd("C:/Data/Total_Water/")
+  
   #Extract Country
-  Country <- substr(names_file[i], start=1, stop=6)
+  Country <- substr(names_file[i], start=1, stop=5)
+  
   #Extract year of the data
   yr <- substr(names_file[i], start=15, stop=18)
+  
   #Save the Raster with a specific name
-  s_list <- writeRaster(t_water[[i]], filename=paste0(Country,"Total_",yr), format='GTiff', overwrite=T) 
-  rm(Country,yr)
+  s_list <- writeRaster(t_water, filename=paste0(Country," Total Aculeo Lagoon ",yr), format='GTiff', overwrite=T)
+  
+  #Remove lists
+  rm(Country,yr,t_water,water)
 }
 
 #######################################################
@@ -507,7 +535,7 @@ css <- ".nowrap {
 #Shiny app
 ui <- fluidPage(
   #Title and invitation for Shiny App
-  navbarPage("Time Series of Surface Water Body in Aculeo Lake",
+  navbarPage("Time Series of Surface Water Body in Aculeo Lagoon",
              #######################################################
              
              #First tabPanel with a sidebarpanel composed by sliderInput, radio Buttons, download
@@ -588,7 +616,7 @@ server <- function(input, output, session) {
                    aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
                    label.x = "left", label.y = "bottom",
                    parse = TRUE) +
-      labs(title = "TimeSeries Aculeo Lake", subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
+      labs(title = "TimeSeries Aculeo Lagoon", subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
            caption = "Source: EC JRC/Google") +
       xlab("Year") + ylab("Area"~Km^2) + 
       theme_light()
@@ -614,7 +642,7 @@ server <- function(input, output, session) {
                    aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
                    label.x = "left", label.y = "bottom",
                    parse = TRUE) +
-      labs(title = "TimeSeries Aculeo Lake", subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
+      labs(title = "TimeSeries Aculeo Lagoon", subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
            caption = "Source: EC JRC/Google") +
       xlab("Year") + ylab("Area"~Km^2) + 
       theme_light()
@@ -685,7 +713,7 @@ server <- function(input, output, session) {
   #Function to download the Table filtered before
   output$download_data <- downloadHandler(
     
-    filename = paste("Aculeo_Lake_Data",".csv",sep=''),
+    filename = paste("Aculeo_Lagoon_Data",".csv",sep=''),
     content = function(file) {
       data <- filtered_data()
       write.csv(data, file, row.names = FALSE)
