@@ -1,8 +1,8 @@
-# ###########
+#######################################################
 # download and display Area of water and look the diminish of the Aculeo Lake, Paine, Chile.
 # created just for teaching purpose - not for scientific analysis! 100% accuracy not ensured
 # learning goal: download data, convert them, analyse spatio-temporal data and display them in differents forms.
-# ###########
+#######################################################
 # 
 # idea triggered by these news, videos and personal experience:
 # https://twitter.com/copernicusems/status/1178001302829375490
