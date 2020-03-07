@@ -3,14 +3,14 @@
 # Created just for teaching purpose - not for scientific analysis! 100% accuracy not ensured
 # Learning goal: download data, convert them, analyse spatio-temporal data and display them in differents forms.
 #######################################################
-# 
+
 # Idea triggered by these news, videos and personal experience:
 # https://twitter.com/copernicusems/status/1178001302829375490
 # https://www.youtube.com/watch?v=aEi-itbg4bs
 # https://earthobservatory.nasa.gov/images/144836/lake-aculeo-dries-up
 # https://www.straitstimes.com/world/americas/drought-wipes-chiles-popular-lake-aculeo-from-the-map
 # https://chiletoday.cl/site/how-chile-should-prepare-for-a-future-without-water/
-# 
+
 # Originally written by Diego Alonso Alarcon Diaz in January 2020, latest Version: March 2020
 # Code is good to go!
 
@@ -84,12 +84,11 @@ setwd("c:/Data/Data_Bruto/")
 
 # The data necessary for this project will be automatically download
 # It is also possible just changing the /Chile_all.zip to another country download the data
-fileURL <-
-  "https://storage.googleapis.com/global-surface-water-stats/zips/Chile_all.zip"
+fileURL <- "https://storage.googleapis.com/global-surface-water-stats/zips/Chile_all.zip"
 
 # Here is necessary to check if the data was downloaded and then unzip the content
 if (!file.exists(tempdl)) {
-  download.file(fileURL ,tempdl, mode="wb") 
+  download.file(fileURL ,tempdl, mode="wb")
   unzip(tempdl,exdir = ".",overwrite = TRUE)
 } else {
   unzip(tempdl,exdir = ".",overwrite = TRUE)
