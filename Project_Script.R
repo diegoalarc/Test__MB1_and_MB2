@@ -135,12 +135,11 @@ for (i in 1:length(Water_all_IMAGE)){
 
 # For-loop to create a Raster Files with all the *.tiff images
 #for (i in 1:length(Water_all_IMAGE)){ 
-#  water_aculeo_raster <- raster(Water_all_IMAGE[i])
-#  tmp <- append(tmp,water_aculeo_raster)  
+#  water_aculeo_raster[[i]] <- raster(Water_all_IMAGE[i])
 #}
 
 #STUDY_extent <- readOGR("C:/Users/.shp")
-#STUDY_extent <- spTransform(STUDY_extent, crs(tmp[[1]]))
+#STUDY_extent <- spTransform(STUDY_extent, crs(water_aculeo_raster[[1]]))
 
 #######################################################
 
@@ -164,14 +163,8 @@ for (i in 1:length(water_aculeo_raster)){
   crop_list[[i]] <- crop(water_aculeo_raster[[i]],aculeo_extent)
 }
 
-# For-loop to continue use a shape file, the following code would be useful:
-#for (i in 1:length(tmp)){
-#  crop_list[[i]] <- crop(tmp[[i]],STUDY_extent)
-#}
-
 #Create a List of Raster Files
 Water <- list()
-
 
 #For-loop to create a Raster Files with all the *.tiff images
 for (i in 1:length(crop_list)){
