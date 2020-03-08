@@ -86,6 +86,8 @@ setwd("c:/Data/Data_Bruto/")
 # It is also possible just changing the /Chile_all.zip to another country download the data
 fileURL <- "https://storage.googleapis.com/global-surface-water-stats/zips/Chile_all.zip"
 
+Lagoon <- "Aculeo Lagoon"
+
 # Here is necessary to check if the data was downloaded and then unzip the content
 if (!file.exists(tempdl)) {
   download.file(fileURL ,tempdl, mode="wb")
@@ -206,7 +208,7 @@ for (i in 1:length(Water)){
   yr <- substr(names(Water[[i]]), start=15, stop=18)
   
   # Save the Raster with a specific name
-  s_list <- writeRaster(t_Seasonal, filename=paste0(Country," Seasonal Aculeo Lagoon ",yr), format='GTiff', overwrite=T)
+  s_list <- writeRaster(t_Seasonal, filename=paste0(Country," Seasonal ",Lagoon," ",yr), format='GTiff', overwrite=T)
   
   # Remove lists
   rm(t_Seasonal)
@@ -218,7 +220,7 @@ for (i in 1:length(Water)){
   setwd("C:/Data/Permanent_Water/")
   
   # Save the Raster with a specific name
-  s_list <- writeRaster(t_Permanent, filename=paste0(Country," Permanent Aculeo Lagoon ",yr), format='GTiff', overwrite=T)
+  s_list <- writeRaster(t_Permanent, filename=paste0(Country," Permanent ",Lagoon," ",yr), format='GTiff', overwrite=T)
   
   # Remove lists
   rm(t_Permanent)
@@ -230,7 +232,7 @@ for (i in 1:length(Water)){
   setwd("C:/Data/Total_Water/")
   
   # Save the Raster with a specific name
-  s_list <- writeRaster(t_water, filename=paste0(Country," Total Aculeo Lagoon ",yr), format='GTiff', overwrite=T)
+  s_list <- writeRaster(t_water, filename=paste0(Country," Total ",Lagoon," ",yr), format='GTiff', overwrite=T)
   
   # Remove lists
   rm(t_water)
@@ -287,7 +289,9 @@ tmp_Stack3 <- stack(all_IMAGE4)
 # for the difference types of water
 
 # Subtract the characters from the names vector and add them to the dataframe
-my_years <- substr(names_file, start=15, stop=18)
+for (i in 1:length(Water)) {
+  my_years[[i]] <- substr(names(Water[[i]]), start=15, stop=18)
+}
 
 # Create a matrix with the data "Seasonal" prior to the creation of the dataframe
 my_mat <- matrix(data = "Seasonal", nrow = length(my_years), ncol = 3)
@@ -410,10 +414,10 @@ if(!file.exists(paste0(reswd,"Seasonal.gif"))) {
     # Extract year of the data
     yr <- substr(names(Water[[i]]), start=15, stop=18)
     # Setting the name for the *.png image
-    png(filename=paste0(Country," Seasonal Aculeo Lagoon ",yr,".png"), width = 680, height = 600)
+    png(filename=paste0(Country," Seasonal ",Lagoon," ",yr,".png"), width = 680, height = 600)
     # Plot of rasters reclassified data
     plot(tmp_Stack1[[i]],
-         main = paste0(Country," Seasonal Aculeo Lagoon ",yr),
+         main = paste0(Country," Seasonal ",Lagoon," ",yr),
          legend = FALSE,
          col = c("green", "blue"),
          breaks=c(0,.000000000000000000001,1))
@@ -443,10 +447,10 @@ if(!file.exists(paste0(reswd,"Permanent.gif"))) {
     # Extract year of the data
     yr <- substr(names(Water[[i]]), start=15, stop=18)
     # Setting the name for the *.png image
-    png(filename=paste0(Country," Permanent Aculeo Lagoon ",yr,".png"), width = 680, height = 600)
+    png(filename=paste0(Country," Permanent ",Lagoon," ",yr,".png"), width = 680, height = 600)
     # Plot of rasters reclassified data
     plot(tmp_Stack2[[i]],
-         main = paste0(Country," Permanent Aculeo Lagoon ",yr),
+         main = paste0(Country," Permanent ",Lagoon," ",yr),
          legend = FALSE,
          col = c("green", "blue"),
          breaks=c(0,.000000000000000000001,1))
@@ -476,10 +480,10 @@ if(!file.exists(paste0(reswd,"Total.gif"))) {
     # Extract year of the data
     yr <- substr(names(Water[[i]]), start=15, stop=18)
     # Setting the name for the *.png image
-    png(filename=paste0(Country," Total Aculeo Lagoon ",yr,".png"), width = 680, height = 600)
+    png(filename=paste0(Country," Total ",Lagoon," ",yr,".png"), width = 680, height = 600)
     # Plot of rasters reclassified data
     plot(tmp_Stack3[[i]],
-         main = paste0(Country," Total Aculeo Lagoon ",yr),
+         main = paste0(Country," Total ",Lagoon," ",yr),
          legend=FALSE,
          col = c("green", "blue"),
          breaks=c(0,.000000000000000000001,1))
@@ -619,7 +623,7 @@ server <- function(input, output, session) {
                    aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
                    label.x = "left", label.y = "bottom",
                    parse = TRUE) +
-      labs(title = "TimeSeries Aculeo Lagoon", subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
+      labs(title = paste("TimeSeries ",Lagoon), subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
            caption = "Source: EC JRC/Google") +
       xlab("Year") + ylab("Area"~Km^2) + 
       theme_light()
@@ -645,7 +649,7 @@ server <- function(input, output, session) {
                    aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
                    label.x = "left", label.y = "bottom",
                    parse = TRUE) +
-      labs(title = "TimeSeries Aculeo Lagoon", subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
+      labs(title = paste("TimeSeries ",Lagoon), subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
            caption = "Source: EC JRC/Google") +
       xlab("Year") + ylab("Area"~Km^2) + 
       theme_light()
