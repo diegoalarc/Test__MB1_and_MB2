@@ -90,6 +90,8 @@ setwd("c:/Data/Data_Bruto/")
 # It is also possible just changing the /Chile_all.zip to another country download the data
 fileURL <- "https://storage.googleapis.com/global-surface-water-stats/zips/Chile_all.zip"
 
+
+# This is the name for the Lagoon for the study
 Lagoon <- "Aculeo Lagoon"
 
 # Here is necessary to check if the data was downloaded and then unzip the content
@@ -119,13 +121,15 @@ aculeo_extent <- spdf
 # Identify the folders
 toFolder <- "c:/Data/Zona_Study/"
 
-setwd("c:/Data/Data_Bruto/")
+setwd("c:/Data/Data_Bruto/")# Setting path
 
 #######################################################
 
 # In case you want to use a shape file, the following code would be useful:
 # Load shapefile with boundary, change path to correct
 #aculeo_extent <- shapefile('C:/Data/Shape/Antofagasta Region.shp')
+
+#######################################################
 
 # Change path to folder containing rasters
 rasdir <- 'C:/Data/Data_Bruto/'
