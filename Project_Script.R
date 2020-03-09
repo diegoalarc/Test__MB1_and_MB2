@@ -54,6 +54,10 @@ if(!require(rgdal)){
   install.packages("rgdal")
   library(rgdal)
 }
+if(!require(rgeos)){
+  install.packages("rgeos")
+  library(rgeos)
+}
 if(!require(devtools)){
   install.packages("devtools", dependencies = TRUE)
   library(devtools)
@@ -96,18 +100,61 @@ if (!file.exists(tempdl)) {
   unzip(tempdl,exdir = ".",overwrite = TRUE)
 }
 
+#######################################################
+
+# Create an object with the coordenate
+
+# Here it is create the replace of the shape file with a SpatialPolygons that has extent area as well
+x_coord <- c(-70.94622,  -70.87834, -70.87834, -70.94622, -70.94622)
+y_coord <- c(-33.87002, -33.87002, -33.82135, -33.82135, -33.87002)
+xym <- cbind(x_coord, y_coord)
+p = Polygon(xym)
+ps = Polygons(list(p),1)
+sps = SpatialPolygons(list(ps))
+proj4string(sps) = CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
+data = data.frame(f=99.9)
+spdf = SpatialPolygonsDataFrame(sps,data)
+aculeo_extent <- spdf
+
 # Identify the folders
-fromFolder <- "c:/Data/Data_Bruto/"
 toFolder <- "c:/Data/Zona_Study/"
 
-# Find the list of files to copy
-list.of.files <- list.files(fromFolder, pattern=c("^Chile_classes_(.*)_0000000000-0000128000.tif$"))
+setwd("c:/Data/Data_Bruto/")
 
-# Copy the files to the toFolder  - THIS DOES NOT WORK WHILE EVERYTHING PRIOR HAS WORKED
-file.copy(file.path(fromFolder,list.of.files), toFolder, overwrite=TRUE)
+#######################################################
+
+# In case you want to use a shape file, the following code would be useful:
+# Load shapefile with boundary, change path to correct
+#aculeo_extent <- shapefile('C:/Data/Shape/Antofagasta Region.shp')
+
+# Change path to folder containing rasters
+rasdir <- 'C:/Data/Data_Bruto/'
+
+# List all GeoTIFF files in folder, change extension in pattern if different format
+fllst <- list.files(path=rasdir, pattern=c("^Chile_classes_(.*).tif$"), full.names=T)
+
+# New vector for storing file names of intersecting rasters
+newlst <- c()
+
+# Loop through files
+for (fl in fllst){
+  r <- raster(fl)
+  # Transform shapefile to match crs of raster
+  aculeo_extent <- spTransform(aculeo_extent, crs(r))
+  # Check if raster intersects shapefile
+  # Suppress warnings from function is optional
+  if (suppressWarnings(!(is.null(intersect(aculeo_extent, extent(r))))))
+  {
+    # If raster intersects, add file name to vector
+    newlst <- c(newlst, fl)
+  }
+}
+
+# Copy the files to the toFolder
+file.copy(file.path(newlst), toFolder, overwrite=TRUE)
 
 # Delete the directory "Data_Bruto"
-unlink("c:/Data/Data_Bruto", recursive = TRUE) 
+unlink("c:/Data/Data_Bruto/", recursive = TRUE) 
 
 # Create the path where are all the *.tiff images we will use.
 Water_IMAGE_path <- "C:/Data/Zona_Study/"
@@ -126,34 +173,6 @@ for (i in 1:length(Water_all_IMAGE)){
 }
 
 #######################################################
-
-# In case you want to use a shape file, the following code would be useful:
-
-#Create a List of Raster Files
-#water_aculeo_raster <- list()
-#tmp <- list()
-
-# For-loop to create a Raster Files with all the *.tiff images
-#for (i in 1:length(Water_all_IMAGE)){ 
-#  water_aculeo_raster[[i]] <- raster(Water_all_IMAGE[i])
-#}
-
-#STUDY_extent <- readOGR("C:/Users/.shp")
-#STUDY_extent <- spTransform(STUDY_extent, crs(water_aculeo_raster[[1]]))
-
-#######################################################
-
-# Create an object with the coordenate
-
-# Here it is create the replace of the shape file with a SpatialPolygons that has extent area as well
-x_coord <- c(-70.94622,  -70.87834)
-y_coord <- c(-33.87002, -33.82135)
-xym <- cbind(x_coord, y_coord)
-p = Polygon(xym)
-ps = Polygons(list(p),1)
-sps = SpatialPolygons(list(ps))
-proj4string(sps) = CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
-aculeo_extent <- sps
 
 # Create a List of the crop list
 crop_list <- list()
@@ -210,7 +229,7 @@ for (i in 1:length(Water)){
   yr <- substr(names(Water[[i]]), start=15, stop=18)
   
   # Save the Raster with a specific name
-  s_list <- writeRaster(t_Seasonal, filename=paste0(Country," Seasonal ",Lagoon," ",yr), format='GTiff', overwrite=T)
+  s_list <- writeRaster(t_Seasonal, filename=paste0("Seasonal Water for ",Lagoon," ",yr,", ",Country), format='GTiff', overwrite=T)
   
   # Remove lists
   rm(t_Seasonal)
@@ -222,7 +241,7 @@ for (i in 1:length(Water)){
   setwd("C:/Data/Permanent_Water/")
   
   # Save the Raster with a specific name
-  s_list <- writeRaster(t_Permanent, filename=paste0(Country," Permanent ",Lagoon," ",yr), format='GTiff', overwrite=T)
+  s_list <- writeRaster(t_Permanent, filename=paste0("Permanent Water for ",Lagoon," ",yr,", ",Country), format='GTiff', overwrite=T)
   
   # Remove lists
   rm(t_Permanent)
@@ -234,7 +253,7 @@ for (i in 1:length(Water)){
   setwd("C:/Data/Total_Water/")
   
   # Save the Raster with a specific name
-  s_list <- writeRaster(t_water, filename=paste0(Country," Total ",Lagoon," ",yr), format='GTiff', overwrite=T)
+  s_list <- writeRaster(t_water, filename=paste0("Total Water for ",Lagoon," ",yr,", ",Country), format='GTiff', overwrite=T)
   
   # Remove lists
   rm(t_water)
@@ -417,10 +436,10 @@ if(!file.exists(paste0(reswd,"Seasonal.gif"))) {
     # Extract year of the data
     yr <- substr(names(Water[[i]]), start=15, stop=18)
     # Setting the name for the *.png image
-    png(filename=paste0(Country," Seasonal ",Lagoon," ",yr,".png"), width = 680, height = 600)
+    png(filename=paste0("Seasonal Water for ",Lagoon," ",yr," ",Country,".png"), width = 680, height = 600)
     # Plot of rasters reclassified data
     plot(tmp_Stack1[[i]],
-         main = paste0(Country," Seasonal ",Lagoon," ",yr),
+         main = paste0("Seasonal Water for ",Lagoon," ",yr,", ",Country),
          legend = FALSE,
          col = c("green", "blue"),
          breaks=c(0,.000000000000000000001,1))
@@ -450,10 +469,10 @@ if(!file.exists(paste0(reswd,"Permanent.gif"))) {
     # Extract year of the data
     yr <- substr(names(Water[[i]]), start=15, stop=18)
     # Setting the name for the *.png image
-    png(filename=paste0(Country," Permanent ",Lagoon," ",yr,".png"), width = 680, height = 600)
+    png(filename=paste0("Permanent Water for ",Lagoon," ",yr," ",Country,".png"), width = 680, height = 600)
     # Plot of rasters reclassified data
     plot(tmp_Stack2[[i]],
-         main = paste0(Country," Permanent ",Lagoon," ",yr),
+         main = paste0("Permanent Water for ",Lagoon," ",yr,", ",Country),
          legend = FALSE,
          col = c("green", "blue"),
          breaks=c(0,.000000000000000000001,1))
@@ -483,10 +502,10 @@ if(!file.exists(paste0(reswd,"Total.gif"))) {
     # Extract year of the data
     yr <- substr(names(Water[[i]]), start=15, stop=18)
     # Setting the name for the *.png image
-    png(filename=paste0(Country," Total ",Lagoon," ",yr,".png"), width = 680, height = 600)
+    png(filename=paste0("Total Water for ",Lagoon," ",yr," ",Country,".png"), width = 680, height = 600)
     # Plot of rasters reclassified data
     plot(tmp_Stack3[[i]],
-         main = paste0(Country," Total ",Lagoon," ",yr),
+         main = paste0("Total Water for ",Lagoon," ",yr,", ",Country),
          legend=FALSE,
          col = c("green", "blue"),
          breaks=c(0,.000000000000000000001,1))
@@ -690,7 +709,7 @@ server <- function(input, output, session) {
     # Created the file name from the information of the radio Buttons in order to 
     # display the *.png image for an specific period of time and type of water body
     filename <- normalizePath(file.path('c:/Data',
-                                        paste(input$typeInput2,"_Water_Color/","Chile ",input$typeInput2," Aculeo Lagoon ",input$yearsInput2, ".png", sep='')))
+                                        paste(input$typeInput2,"_Water_Color/",input$typeInput2," Water for Aculeo Lagoon ",input$yearsInput2," Chile",".png", sep='')))
     
     # Return a list containing the filename and alt text
     list(src = filename,
