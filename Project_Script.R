@@ -163,6 +163,15 @@ for (i in 1:length(water_aculeo_raster)){
   crop_list[[i]] <- crop(water_aculeo_raster[[i]],aculeo_extent)
 }
 
+#Create the vector with the name file
+names_file <- vector(mode="character")
+
+#For-loop to obtain the name file for all the raster in one vector file
+#which will be used when the rasters file will be saved
+for (i in 1:length(crop_list)){
+  names_file[[i]] <- names(crop_list[[i]])
+}
+
 #Create a List of Raster Files
 Water <- list()
 
@@ -280,11 +289,12 @@ tmp_Stack3 <- stack(all_IMAGE4)
 
 # Define dataframe and fill it with the Year, Type and Area 
 # for the difference types of water
+#Create the vector with the name file
+my_years <- vector(mode="character")
 
 # Subtract the characters from the names vector and add them to the dataframe
-for (i in 1:length(Water)) {
-  my_years[[i]] <- substr(names(Water[[i]]), start=15, stop=18)
-}
+my_years <- substr(names_file, start=15, stop=18)
+
 
 # Create a matrix with the data "Seasonal" prior to the creation of the dataframe
 my_mat <- matrix(data = "Seasonal", nrow = length(my_years), ncol = 3)
@@ -365,7 +375,7 @@ for (i in 1:nrow(my_df3)){
 # for the area of the water body for each year plot in the Table for Shiny App with the unit Km^2
 my_mat4 <- matrix(data = NA, nrow = (length(my_years)*3), ncol = 3)
 my_df4 <- data.frame(my_mat3,stringsAsFactors=FALSE)
-names(my_df4) <- c("Year", "Type", "Area")
+names(my_df4) <- c("Year", "Type", "Area [Km^2]")
 my_df4 <- rbind.data.frame(my_df,my_df1,my_df2)
 
 #######################################################
