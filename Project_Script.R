@@ -58,6 +58,14 @@ if(!require(rgeos)){
   install.packages("rgeos")
   library(rgeos)
 }
+if(!require(snow)){
+  install.packages("snow")
+  library(snow)
+}
+if(!require(ClusterR)){
+  install.packages("ClusterR")
+  library(ClusterR)
+}
 if(!require(devtools)){
   install.packages("devtools", dependencies = TRUE)
   library(devtools)
@@ -204,6 +212,9 @@ for (i in 1:length(crop_list)){
 }
 #######################################################
 
+# Activation of the cores in the device and focus these in the following process
+beginCluster()
+
 # For-loop to create a brick of differents types of water
 for (i in 1:length(Water)){
   
@@ -221,7 +232,8 @@ for (i in 1:length(Water)){
   # 3  Permanent water
     
   # The raster files will be classified according to what is indicated on the website  
-  t_Seasonal <- reclassify(Water[[i]], c(0, 1, NA, 1, 2, 1, 2, 3, NA))
+  t_Seasonal <- clusterR(Water[[i]], reclassify, args = list(rcl = c(0, 1, NA, 1, 2, 1, 2, 3, NA)), progress = "text")
+  
   
   # Setting path for Seasonal Water
   setwd("C:/Data/Seasonal_Water/")
@@ -239,9 +251,9 @@ for (i in 1:length(Water)){
   rm(t_Seasonal)
   
   # The raster files will be classified according to what is indicated on the website
-  t_Permanent <- reclassify(Water[[i]], c(0, 2, NA, 2, 3, 1))
+  t_Permanent <- clusterR(Water[[i]], reclassify, args = list(rcl = c(0, 2, NA, 2, 3, 1)), progress = "text")
   
-  # Setting path for Permanent Water
+    # Setting path for Permanent Water
   setwd("C:/Data/Permanent_Water/")
   
   # Save the Raster with a specific name
@@ -251,7 +263,7 @@ for (i in 1:length(Water)){
   rm(t_Permanent)
   
   # The raster files will be classified according to what is indicated on the website
-  t_water <- reclassify(Water[[i]], c(0, 1, NA, 1, 3, 1))
+  t_water <- clusterR(Water[[i]], reclassify, args = list(rcl = c(0, 1, NA, 1, 3, 1)), progress = "text")
   
   # Setting path for Total Water (Permanent + Seasonal)
   setwd("C:/Data/Total_Water/")
@@ -262,6 +274,9 @@ for (i in 1:length(Water)){
   # Remove lists
   rm(t_water)
 }
+
+# Disabling the cores on the device when the process ends
+endCluster()
 
 # Remove lists
 rm(Country,yr)
