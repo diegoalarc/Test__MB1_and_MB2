@@ -67,7 +67,7 @@ if(!require(ClusterR)){
   library(ClusterR)
 }
 if(!require(devtools)){
-  install.packages("devtools", dependencies = TRUE)
+  install.packages("devtools")
   library(devtools)
 }
 
@@ -275,9 +275,6 @@ for (i in 1:length(Water)){
   rm(t_water)
 }
 
-# Disabling the cores on the device when the process ends
-endCluster()
-
 # Remove lists
 rm(Country,yr)
 
@@ -415,6 +412,10 @@ my_mat4 <- matrix(data = NA, nrow = (length(my_years)*3), ncol = 3)
 my_df4 <- data.frame(my_mat3,stringsAsFactors=FALSE)
 names(my_df4) <- c("Year", "Type", "Area [Km^2]")
 my_df4 <- rbind.data.frame(my_df,my_df1,my_df2)
+
+
+# Disabling the cores on the device when the process ends
+endCluster()
 
 #######################################################
 # Units were placed in the data frame but cannot be displayed in the Shiny App table
