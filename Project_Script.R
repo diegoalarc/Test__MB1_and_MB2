@@ -72,6 +72,9 @@ if(!require(devtools)){
 }
 
 #######################################################
+# Activation of the cores in the device and focus these in the following process
+beginCluster()
+
 
 # It is necessary to set and create the folders 
 # the folders before hand to storage the data
@@ -211,9 +214,6 @@ for (i in 1:length(crop_list)){
   Water[[i]] <- brick(crop_list[[i]])
 }
 #######################################################
-
-# Activation of the cores in the device and focus these in the following process
-beginCluster()
 
 # For-loop to create a brick of differents types of water
 for (i in 1:length(Water)){
@@ -413,10 +413,6 @@ my_df4 <- data.frame(my_mat3,stringsAsFactors=FALSE)
 names(my_df4) <- c("Year", "Type", "Area [Km^2]")
 my_df4 <- rbind.data.frame(my_df,my_df1,my_df2)
 
-
-# Disabling the cores on the device when the process ends
-endCluster()
-
 #######################################################
 # Units were placed in the data frame but cannot be displayed in the Shiny App table
 
@@ -543,6 +539,9 @@ if(!file.exists(paste0(reswd,"Total.gif"))) {
     image_animate(fps=1) %>% # animates, can opt for number of loops
     image_write("Total.gif") # write to current dir
 }
+
+# Disabling the cores on the device when the process ends
+endCluster()
 
 #######################################################
 # Creation and display of a Shiny App in RStudio
