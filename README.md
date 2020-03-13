@@ -5,7 +5,7 @@ Through this script an easy and fast way is proposed to observe the decrease ove
 
 # Scrips
 
-The main __script__ that concerns us in this project is called __Project_Script.R__ 
+The main __script__ that concerns us in this project is called [Project_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_Script.R) 
 Within this we can find code for:
 
  - Raster Data
@@ -13,7 +13,7 @@ Within this we can find code for:
  - Tiff files selected by means of a Shape
  - Shiny App
  
-The second script that can be seen is called __Project_QGIS_Script.R__ which was generated to obtain the images that were used for the __QGIS__ project of the [Master EAGLE](http://eagle-science.org/) and was intended to work with mosaics at the country level and cut entire regions with memory efficiency. Within this you can find the main up grade with reference to the previous code:
+The second script that can be seen is called [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R) which was generated to obtain the images that were used for the __QGIS__ project of the [Master EAGLE](http://eagle-science.org/) and was intended to work with mosaics at the country level and cut entire regions with memory efficiency. Within this you can find the main up grade with reference to the previous code:
 
  - Command to call __GDAL__ in __QGIS__ from __RStudio__
  - Plot generation and saved directly in a route pre-established by the code.
