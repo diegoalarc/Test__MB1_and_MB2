@@ -245,7 +245,7 @@ for (i in 1:length(Water)){
   yr <- substr(names(Water[[i]]), start=15, stop=18)
   
   # Save the Raster with a specific name
-  s_list <- writeRaster(t_Seasonal, filename=paste0("Seasonal Water for ",Lagoon," ",yr,", ",Country), format='GTiff', overwrite=T)
+  s_list <- writeRaster(t_Seasonal, filename=paste0("Seasonal_Water_for ",Lagoon,"_",yr,"_",Country), format='GTiff', overwrite=T)
   
   # Remove lists
   rm(t_Seasonal)
@@ -257,7 +257,7 @@ for (i in 1:length(Water)){
   setwd("C:/Data/Permanent_Water/")
   
   # Save the Raster with a specific name
-  s_list <- writeRaster(t_Permanent, filename=paste0("Permanent Water for ",Lagoon," ",yr,", ",Country), format='GTiff', overwrite=T)
+  s_list <- writeRaster(t_Permanent, filename=paste0("Permanent_Water_for_",Lagoon,"_",yr,"_",Country), format='GTiff', overwrite=T)
   
   # Remove lists
   rm(t_Permanent)
@@ -269,7 +269,7 @@ for (i in 1:length(Water)){
   setwd("C:/Data/Total_Water/")
   
   # Save the Raster with a specific name
-  s_list <- writeRaster(t_water, filename=paste0("Total Water for ",Lagoon," ",yr,", ",Country), format='GTiff', overwrite=T)
+  s_list <- writeRaster(t_water, filename=paste0("Total_Water_for_",Lagoon,"_",yr,"_",Country), format='GTiff', overwrite=T)
   
   # Remove lists
   rm(t_water)
@@ -367,7 +367,7 @@ names(my_df2) <- c("Year", "Type", "Area")
 for (i in 1:length(my_years)){
   
   # Extracting the quantity of pixel with the value 1 and sum them
-  area_Seasonal <- cellStats(tmp_Stack1[[i]], 'sum')
+  area_Seasonal <- cellStats(tmp_Stack1[[i]], 'sum', progress = "text")
   
   # Multiplied by 30m * 30m (Images obtained from the Copernicus project) 
   # and divided into 1e-6 to obtain the square Kilometers, which are an 
@@ -375,7 +375,7 @@ for (i in 1:length(my_years)){
   my_df[i,3] <- ((area_Seasonal*9)/10000)
   
   # Extracting the quantity of pixel with the value 1 and sum them
-  area_Permanent <- cellStats(tmp_Stack2[[i]], 'sum')
+  area_Permanent <- cellStats(tmp_Stack2[[i]], 'sum', progress = "text")
   
   # Multiplied by 30m * 30m (Images obtained from the Copernicus project) 
   # and divided into 1e-6 to obtain the square Kilometers, which are an 
@@ -662,7 +662,7 @@ server <- function(input, output, session) {
       geom_smooth(method="loess", se=TRUE, formula= my.formula) +
       stat_poly_eq(formula = my.formula, 
                    aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
-                   label.x = "left", label.y = "bottom",
+                   label.x = "left", label.y = "center",
                    parse = TRUE) +
       labs(title = paste("TimeSeries ",Lagoon), subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
            caption = "Source: EC JRC/Google") +
@@ -688,7 +688,7 @@ server <- function(input, output, session) {
       geom_smooth(method="loess", se=TRUE, formula= my.formula) +
       stat_poly_eq(formula = my.formula, 
                    aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
-                   label.x = "left", label.y = "bottom",
+                   label.x = "left", label.y = "center",
                    parse = TRUE) +
       labs(title = paste("TimeSeries ",Lagoon), subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
            caption = "Source: EC JRC/Google") +
