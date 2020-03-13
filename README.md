@@ -1,4 +1,4 @@
-!["Uni Wuerzburg"](C:/Users/JELG02/OneDrive/Uni-Wue/1er_Semestre/SOS1_Project_management _Scientific_Presentation_Scientific_Writing/EAGLE_logo.png?raw=true "EAGLE Msc")
+!["Uni Wuerzburg"](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Total_Water/EAGLE_logo.png?raw=true "EAGLE Msc")
 
 # Code Test MB2
 Here is the project for the MB2 course Introduction to Programming and Geostatistics
