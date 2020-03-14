@@ -168,7 +168,7 @@ for (fl in fllst){
 file.copy(file.path(newlst), toFolder, overwrite=TRUE)
 
 # Delete the directory "Data_Bruto"
-unlink("c:/Data/Data_Bruto/", recursive = TRUE) 
+unlink("c:/Data/Data_Bruto", recursive = TRUE, force = TRUE)
 
 # Create the path where are all the *.tiff images we will use.
 Water_IMAGE_path <- "C:/Data/Zona_Study/"
