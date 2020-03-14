@@ -1,6 +1,6 @@
 !["Uni Wuerzburg"](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Total_Water/EAGLE_logo.png?raw=true "EAGLE Msc")
 
-# Test codes for the MB1 and MB2 Master EAGLE course at the University of Wuerzburg, Germany.
+# Codes for the approval of the MB1 and MB2 Master EAGLE courses at the University of Wuerzburg, Germany.
 The first __script__ corresponds to the project for the MB2 course Introduction to Programming and Geostatistics.
 
 
