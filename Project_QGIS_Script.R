@@ -129,8 +129,6 @@ toFolder <- paste0(hard_drive,Lagoon,"/Zona_Study/")
 
 #######################################################
 
-#######################################################
-
 # Change path to folder containing rasters
 rasdir <- paste0(hard_drive,Lagoon,"/Data_Bruto/")
 
@@ -156,8 +154,6 @@ for (fl in fllst){
 
 # Copy the files to the toFolder
 file.copy(file.path(newlst), toFolder, overwrite=TRUE)
-
-
 
 #Create the path where are all the *.tiff images we will use.
 IMAGE_path <- paste0(hard_drive,Lagoon,"/Zona_Study/")
@@ -283,10 +279,8 @@ for (i in 1:length(Water)){
   # Save the Raster with a specific name
   s_list <- writeRaster(t_Permanent, filename=paste0("Permanent_Water_for_",Lagoon,"_",yr), format='GTiff', overwrite=T)
   
-  
   # Remove lists
   rm(t_Permanent)
-  
   
   # The raster files will be classified according to what is indicated on the website
   t_water <- reclassify(Water[[i]], c(0, 1, NA, 1, 3, 1))
@@ -296,7 +290,6 @@ for (i in 1:length(Water)){
   
   # Save the Raster with a specific name
   s_list <- writeRaster(t_water, filename=paste0("Total_Water_for_",Lagoon,"_",yr), format='GTiff', overwrite=T)
-  
   
   # Remove lists
   rm(t_water)
@@ -328,7 +321,6 @@ for (i in 1:length(my_years)) {
   
   system2(command = "C:/Program Files/QGIS 3.10/OSGeo4W.bat",
           args = paste('gdal_translate -a_srs EPSG:4326 -ot UInt16 -of GPKG ', input6, output6))
-  
 }
 
 for (i in 1:length(my_years)) {
@@ -338,7 +330,6 @@ for (i in 1:length(my_years)) {
   
   system2(command = "C:/Program Files/QGIS 3.10/OSGeo4W.bat",
           args = paste('gdal_translate -a_srs EPSG:4326 -ot UInt16 -of GPKG ', input7, output7))
-  
 }
 
 #################################333
@@ -477,7 +468,6 @@ my_df1 = read.csv(paste0(Lagoon,"_Permanent",".csv"), header=TRUE)
 my_df2 = read.csv(paste0(Lagoon,"_Total",".csv"), header=TRUE)
 
 
-
 my_df3 <- rbind.data.frame(my_df,my_df1,my_df2)
 
 for (i in 1:nrow(my_df3)){
@@ -485,16 +475,6 @@ for (i in 1:nrow(my_df3)){
 }
 
 all_tg <- " all "
-
-if(!require(ggplot2)){
-  install.packages("ggplot2")
-  library(ggplot2)
-}
-
-l <- ggplot(my_df3, aes(x = Year, y = Area, colour = Type))
-
-g <- l + geom_line()
-print(g)
 
 #######################################################
 
@@ -537,6 +517,7 @@ p <- ggplot(my_df, aes(x=Year, y=Area, group = Type)) +
                                    size=7, angle=0))
 # Saving the plot
 ggsave(paste("TimeSeries of",Lagoon1,sea," Chile",".png"), plot = p, width = 20, height = 10, units = "cm")
+
 
 
 # Plotting the Permanent Water
@@ -584,6 +565,7 @@ o <- ggplot(my_df2, aes(x=Year, y=Area, group = Type)) +
                                    size=7, angle=0))
 # Saving the plot
 ggsave(paste("TimeSeries of",Lagoon1,tot," Chile",".png"), plot = o, width = 20, height = 10, units = "cm")
+
 
 
 # Plotting the Total Water
