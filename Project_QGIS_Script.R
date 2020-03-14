@@ -1,15 +1,8 @@
 #######################################################
-# Download and display the Area of water and look the diminish of the Aculeo Lagoon, Paine, Chile.
+# Download and display the Area of water and look at them.
 # Created just for teaching purpose - not for scientific analysis! 100% accuracy not ensured
 # Learning goal: download data, convert them, analyse spatio-temporal data and display them in differents forms.
 #######################################################
-
-# Idea triggered by these news, videos and personal experience:
-# https://twitter.com/copernicusems/status/1178001302829375490
-# https://www.youtube.com/watch?v=aEi-itbg4bs
-# https://earthobservatory.nasa.gov/images/144836/lake-aculeo-dries-up
-# https://www.straitstimes.com/world/americas/drought-wipes-chiles-popular-lake-aculeo-from-the-map
-# https://chiletoday.cl/site/how-chile-should-prepare-for-a-future-without-water/
 
 # Originally written by Diego Alonso Alarcon Diaz in January 2020, latest Version: March 2020
 # Code is good to go!
@@ -63,7 +56,9 @@ if(!require(devtools)){
   install.packages("devtools", dependencies = TRUE)
   library(devtools)
 }
-
+#######################################################
+# Activation of the cores in the device and focus these in the following process
+beginCluster()
 
 #####################################################
 # Define the only data you need to change
@@ -77,7 +72,7 @@ Lagoon <- "Aculeo_Lagoon"
 
 Lagoon1 <- "Aculeo Lagoon"
 
-hard_drive <- "B:/Data/"
+hard_drive <- "B:/"
 
 ####################################################
 
@@ -86,12 +81,11 @@ hard_drive <- "B:/Data/"
 setwd(hard_drive)#Setting path
 dir.create(paste0("Data/",Lagoon))#Create folder
 
-setwd(paste0(hard_drive,"/Data/"))
+setwd(paste0(hard_drive,"Data/"))
 dir.create("Data_Frame")
-setwd(paste0(hard_drive,"/Data/"))
 dir.create(paste0("Data_Frame/",Lagoon))
 
-setwd(paste0(hard_drive,"/Data/",Lagoon))#Setting path
+setwd(paste0(hard_drive,"Data/",Lagoon))#Setting path
 dir.create("Permanent_Water")#Create folder
 dir.create("Seasonal_Water")#Create folder
 dir.create("Total_Water")#Create folder
@@ -104,8 +98,8 @@ dir.create("Mosaic")# Create folder
 
 #######################################################
 
-tempdl <- paste0(hard_drive,"/Data/Chile_all.zip")
-setwd(paste0(hard_drive,Lagoon,"/Data_Bruto/"))
+tempdl <- paste0(hard_drive,"Data/Chile_all.zip")
+setwd(paste0(hard_drive,"Data/",Lagoon,"/Data_Bruto/"))
 
 
 # The data necessary for this project will be automatically download
@@ -124,13 +118,13 @@ if (!file.exists(tempdl)) {
 #######################################################
 
 #Identify the folders
-fromFolder <- paste0(hard_drive,Lagoon,"/Data_Bruto/")
-toFolder <- paste0(hard_drive,Lagoon,"/Zona_Study/")
+fromFolder <- paste0(hard_drive,"Data/",Lagoon,"/Data_Bruto/")
+toFolder <- paste0(hard_drive,"Data/",Lagoon,"/Zona_Study/")
 
 #######################################################
 
 # Change path to folder containing rasters
-rasdir <- paste0(hard_drive,Lagoon,"/Data_Bruto/")
+rasdir <- paste0(hard_drive,"Data/",Lagoon,"/Data_Bruto/")
 
 # List all GeoTIFF files in folder, change extension in pattern if different format
 fllst <- list.files(path=rasdir, pattern=c("^Chile_classes_(.*).tif$"), full.names=T)
@@ -156,7 +150,7 @@ for (fl in fllst){
 file.copy(file.path(newlst), toFolder, overwrite=TRUE)
 
 #Create the path where are all the *.tiff images we will use.
-IMAGE_path <- paste0(hard_drive,Lagoon,"/Zona_Study/")
+IMAGE_path <- paste0(hard_drive,"Data/",Lagoon,"/Zona_Study/")
 
 #Load all the images in one list.
 all_IMAGE <- list.files(IMAGE_path,
@@ -181,7 +175,7 @@ for (i in 1:length(aculeo_names)) {
 # Calling Gdal by R to create a mosaic into a .vrt, Clipped with a Shapefile and transform to a Geotiff compress = LZW
 # It is necessary to check the QGIS folder on the computer this code will run
 
-rasdir <- paste0(hard_drive,Lagoon,"/Zona_Study/")
+rasdir <- paste0(hard_drive,"Data/",Lagoon,"/Zona_Study/")
 
 if(!require(sf)){
   install.packages("sf")
@@ -189,30 +183,30 @@ if(!require(sf)){
 }
 
 for (i in 1:length(my_years)) {
-  output <- paste0(hard_drive,Lagoon,"/Mosaic/Chile_classes_",my_years[[i]],".vrt")
+  output <- paste0(hard_drive,"Data/",Lagoon,"/Mosaic/Chile_classes_",my_years[[i]],".vrt")
   input1 <- list.files(path=rasdir, pattern=c("^Chile_classes_", my_years[[i]],"(.*).tif$"), full.names=T)
   system2(command = "C:/Program Files/QGIS 3.10/OSGeo4W.bat",
           args = paste('gdalbuildvrt', output, input1[i]))
 }
 
 for (i in 1:length(my_years)) {
-  output2 <- paste0(hard_drive,Lagoon,"/Crop_data/Chile_classes_",my_years[[i]],".vrt")
-  input2 <- paste0(hard_drive,Lagoon,"/Mosaic/Chile_classes_",my_years[[i]],".vrt")
+  output2 <- paste0(hard_drive,"Data/",Lagoon,"/Crop_data/Chile_classes_",my_years[[i]],".vrt")
+  input2 <- paste0(hard_drive,"Data/",Lagoon,"/Mosaic/Chile_classes_",my_years[[i]],".vrt")
   system2(command = "C:/Program Files/QGIS 3.10/OSGeo4W.bat",
           args = paste('gdalwarp -cutline',shape_path,
                        '-crop_to_cutline',input2 ,output2))
 }
 
 for (i in 1:length(my_years)) {
-  output4 <- paste0(hard_drive,Lagoon,"/Mask_data/Chile_classes_",my_years[[i]],".tif")
-  input4 <- paste0(hard_drive,Lagoon,"/Crop_data/Chile_classes_",my_years[[i]],".vrt")
+  output4 <- paste0(hard_drive,"Data/",Lagoon,"/Mask_data/Chile_classes_",my_years[[i]],".tif")
+  input4 <- paste0(hard_drive,"Data/",Lagoon,"/Crop_data/Chile_classes_",my_years[[i]],".vrt")
   system2(command = "C:/Program Files/QGIS 3.10/OSGeo4W.bat",
           args = paste('gdal_translate -a_srs EPSG:4326 -ot Byte -of VRT -co COMPRESS=LZW -co PREDICTOR=2 -co TILED=YES ', input4, output4))
 }
 #########################################################
 
 # Create the path where are all the *.tiff images we will use.
-Water_IMAGE_path <- paste0(hard_drive,Lagoon,"/Mask_data/")
+Water_IMAGE_path <- paste0(hard_drive,"Data/",Lagoon,"/Mask_data/")
 
 # Load all the images in one list.
 Water_all_IMAGE <- list.files(Water_IMAGE_path,
@@ -256,7 +250,7 @@ for (i in 1:length(Water)){
   t_Seasonal <- reclassify(Water[[i]], c(0, 1, NA, 1, 2, 1, 2, 3, NA))
   
   # Setting path for Seasonal Water
-  setwd(paste0(hard_drive,Lagoon,"/Seasonal_Water/"))
+  setwd(paste0(hard_drive,"Data/",Lagoon,"/Seasonal_Water/"))
   
   # Extract Country
   Country <- substr(names(Water[[i]]), start=1, stop=5)
@@ -274,7 +268,7 @@ for (i in 1:length(Water)){
   t_Permanent <- reclassify(Water[[i]], c(0, 2, NA, 2, 3, 1))
   
   # Setting path for Permanent Water
-  setwd(paste0(hard_drive,Lagoon,"/Permanent_Water"))
+  setwd(paste0(hard_drive,"Data/",Lagoon,"/Permanent_Water"))
   
   # Save the Raster with a specific name
   s_list <- writeRaster(t_Permanent, filename=paste0("Permanent_Water_for_",Lagoon,"_",yr), format='GTiff', overwrite=T)
@@ -286,7 +280,7 @@ for (i in 1:length(Water)){
   t_water <- reclassify(Water[[i]], c(0, 1, NA, 1, 3, 1))
   
   # Setting path for Total Water (Permanent + Seasonal)
-  setwd(paste0(hard_drive,Lagoon,"/Total_Water"))
+  setwd(paste0(hard_drive,"Data/",Lagoon,"/Total_Water"))
   
   # Save the Raster with a specific name
   s_list <- writeRaster(t_water, filename=paste0("Total_Water_for_",Lagoon,"_",yr), format='GTiff', overwrite=T)
@@ -307,8 +301,8 @@ unlink(erase_path, recursive = T)
 
 for (i in 1:length(my_years)) {
   
-  output5 <- paste0("B:/Data/Data_Frame/",Lagoon,"/Seasonal_Water_for_",Lagoon,"_",my_years[[i]],".gpkg")
-  input5 <- paste0(hard_drive,Lagoon,"/Seasonal_Water/Seasonal_Water_for_",Lagoon,"_",my_years[[i]],".tif")
+  output5 <- paste0(hard_drive,"Data/Data_Frame/",Lagoon,"/Seasonal_Water_for_",Lagoon,"_",my_years[[i]],".gpkg")
+  input5 <- paste0(hard_drive,"Data/",Lagoon,"/Seasonal_Water/Seasonal_Water_for_",Lagoon,"_",my_years[[i]],".tif")
   
   system2(command = "C:/Program Files/QGIS 3.10/OSGeo4W.bat",
           args = paste('gdal_translate -a_srs EPSG:4326 -ot UInt16 -of GPKG ', input5, output5))
@@ -316,8 +310,8 @@ for (i in 1:length(my_years)) {
 }
 for (i in 1:length(my_years)) {
   
-  output6 <- paste0("B:/Data/Data_Frame/",Lagoon,"/Permanent_Water_for_",Lagoon,"_",my_years[[i]],".gpkg")
-  input6 <- paste0(hard_drive,Lagoon,"/Permanent_Water/Permanent_Water_for_",Lagoon,"_",my_years[[i]],".tif")
+  output6 <- paste0(hard_drive,"Data/Data_Frame/",Lagoon,"/Permanent_Water_for_",Lagoon,"_",my_years[[i]],".gpkg")
+  input6 <- paste0(hard_drive,"Data/",Lagoon,"/Permanent_Water/Permanent_Water_for_",Lagoon,"_",my_years[[i]],".tif")
   
   system2(command = "C:/Program Files/QGIS 3.10/OSGeo4W.bat",
           args = paste('gdal_translate -a_srs EPSG:4326 -ot UInt16 -of GPKG ', input6, output6))
@@ -325,8 +319,8 @@ for (i in 1:length(my_years)) {
 
 for (i in 1:length(my_years)) {
   
-  output7 <- paste0("B:/Data/Data_Frame/",Lagoon,"/Total_Water_for_",Lagoon,"_",my_years[[i]],".gpkg")
-  input7 <- paste0(hard_drive,Lagoon,"/Total_Water/Total_Water_for_",Lagoon,"_",my_years[[i]],".tif")
+  output7 <- paste0(hard_drive,"Data/Data_Frame/",Lagoon,"/Total_Water_for_",Lagoon,"_",my_years[[i]],".gpkg")
+  input7 <- paste0(hard_drive,"Data/",Lagoon,"/Total_Water/Total_Water_for_",Lagoon,"_",my_years[[i]],".tif")
   
   system2(command = "C:/Program Files/QGIS 3.10/OSGeo4W.bat",
           args = paste('gdal_translate -a_srs EPSG:4326 -ot UInt16 -of GPKG ', input7, output7))
@@ -338,7 +332,7 @@ for (i in 1:length(my_years)) {
 tmp_Stack1 <- list()
 
 # Create the path where Seasonal *.tiff images we will use.
-IMAGE_path2 <- paste0(hard_drive,Lagoon,"/Seasonal_Water/")
+IMAGE_path2 <- paste0(hard_drive,"Data/",Lagoon,"/Seasonal_Water/")
 
 # Load all the images in one list.
 all_IMAGE2 <- list.files(IMAGE_path2,
@@ -352,7 +346,7 @@ tmp_Stack1 <- stack(all_IMAGE2)
 tmp_Stack2 <- list()
 
 # Create the path where Permanent *.tiff images we will use.
-IMAGE_path3 <- paste0(hard_drive,Lagoon,"/Permanent_Water/")
+IMAGE_path3 <- paste0(hard_drive,"Data/",Lagoon,"/Permanent_Water/")
 
 # Load all the images in one list.
 all_IMAGE3 <- list.files(IMAGE_path3,
@@ -366,7 +360,7 @@ tmp_Stack2 <- stack(all_IMAGE3)
 tmp_Stack3 <- list()
 
 # Load all the images in one list.
-IMAGE_path4 <- paste0(hard_drive,Lagoon,"/Total_Water/")
+IMAGE_path4 <- paste0(hard_drive,"Data/",Lagoon,"/Total_Water/")
 # Load all the images in one list.
 all_IMAGE4 <- list.files(IMAGE_path4,
                          full.names = TRUE,
@@ -452,11 +446,13 @@ for (i in 1:length(my_years)){
 tempdir()
 dir.create(tempdir())
 
-setwd(paste0(hard_drive,"Data_Frame/",Lagoon))
+setwd(paste0(hard_drive,"Data/Data_Frame/",Lagoon))
 # SAving the data as Data Frame
 write.csv(my_df, file= paste0(Lagoon,"_Seasonal",".csv"), row.names = F)
 write.csv(my_df1, file= paste0(Lagoon,"_Permanent",".csv"), row.names = F)
 write.csv(my_df2, file= paste0(Lagoon,"_Total",".csv"), row.names = F)
+
+rm(my_df, my_df1, my_df2)
 
 sea <- " Seasonal"
 perm <- " Permanent"
@@ -506,7 +502,7 @@ p <- ggplot(my_df, aes(x=Year, y=as.numeric(Area), group = Type)) +
   geom_vline(xintercept=2010, linetype="dashed", color = "red") +
   stat_poly_eq(formula = my.formula,
                aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
-               label.x.npc = "left", label.y.npc = "top",
+               label.x = "left", label.y = "bottom",
                parse = TRUE) +
   labs(title = paste0("TimeSeries of ",sea," Water Body in ",Lagoon1,", Chile"),
        caption = "Source: EC JRC/Google") +
@@ -589,3 +585,6 @@ a <- ggplot(my_df3, aes(x=Year, y=as.numeric(Area), colour = Type)) +
                                    size=7, angle=0))
 # Saving the plot
 ggsave(paste("TimeSeries of",Lagoon1,all_tg," Chile",".png"), plot = a, width = 20, height = 10, units = "cm")
+
+# Disabling the cores on the device when the process ends
+endCluster()
