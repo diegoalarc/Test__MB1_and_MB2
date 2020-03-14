@@ -572,10 +572,9 @@ a <- ggplot(my_df3, aes(x=Year, y=as.numeric(Area), colour = Type)) +
   stat_smooth(method = "lm", formula = my.formula, size = .5) +
   scale_x_continuous(breaks=seq(2000, 2018, 1)) +
   geom_vline(xintercept=2010,linetype="dashed", color = "red") +
-  stat_poly_eq(aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
-               formula = my.formula,
-               label.x = "left", label.y = "center",
-               parse = TRUE) +
+  stat_poly_eq(formula = my.formula, 
+               aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")), 
+               parse = TRUE) + 
   labs(title = paste0("TimeSeries of Water Body in ",Lagoon1,", Chile"),
        caption = "Source: EC JRC/Google") +
   xlab("Year") + ylab("Area"~Km^2) +
