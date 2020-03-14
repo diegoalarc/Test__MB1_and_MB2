@@ -72,9 +72,6 @@ if(!require(devtools)){
 }
 
 #######################################################
-# Activation of the cores in the device and focus these in the following process
-beginCluster()
-
 
 # It is necessary to set and create the folders 
 # the folders before hand to storage the data
@@ -101,9 +98,11 @@ setwd("c:/Data/Data_Bruto/")
 # It is also possible just changing the /Chile_all.zip to another country download the data
 fileURL <- "https://storage.googleapis.com/global-surface-water-stats/zips/Chile_all.zip"
 
-
 # This is the name for the Lagoon for the study
 Lagoon <- "Aculeo Lagoon"
+
+# Activation of the cores in the device and focus these in the following process
+beginCluster()
 
 # Here is necessary to check if the data was downloaded and then unzip the content
 if (!file.exists(tempdl)) {
