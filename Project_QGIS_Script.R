@@ -497,16 +497,16 @@ if(!require(glue)){
 }
 
 # Plotting the Seasonal Water
-my.formula <- y ~ x
-p <- ggplot(my_df, aes(x=Year, y=Area, group = Type)) +
+my.formula <- y ~ x + I(x^2)
+p <- ggplot(my_df, aes(x=Year, y=as.numeric(Area), group = Type)) +
   geom_line(aes(colour = Type), size = .5) +
   geom_point(aes(colour = Type), size = 2) +
-  geom_smooth(method="loess", se=T, formula= my.formula) +
+  stat_smooth(method = "lm", formula = my.formula, size = .5) +
   scale_x_continuous(breaks=seq(2000, 2018, 1)) +
   geom_vline(xintercept=2010, linetype="dashed", color = "red") +
   stat_poly_eq(formula = my.formula,
                aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
-               label.x = "left", label.y = "top",
+               label.x.npc = "left", label.y.npc = "top",
                parse = TRUE) +
   labs(title = paste0("TimeSeries of ",sea," Water Body in ",Lagoon1,", Chile"),
        caption = "Source: EC JRC/Google") +
@@ -521,11 +521,11 @@ ggsave(paste("TimeSeries of",Lagoon1,sea," Chile",".png"), plot = p, width = 20,
 
 
 # Plotting the Permanent Water
-my.formula <- y ~ x
-k <- ggplot(my_df1, aes(x=Year, y=Area, group = Type)) +
+my.formula <- y ~ x + I(x^2)
+k <- ggplot(my_df1, aes(x=Year, y=as.numeric(Area), group = Type)) +
   geom_line(aes(colour = Type), size = .5) +
   geom_point(aes(colour = Type), size = 2) +
-  geom_smooth(method="loess", se=T, formula= my.formula) +
+  stat_smooth(method = "lm", formula = my.formula, size = .5) +
   scale_x_continuous(breaks=seq(2000, 2018, 1)) +
   geom_vline(xintercept=2010, linetype="dashed", color = "red") +
   stat_poly_eq(formula = my.formula,
@@ -545,11 +545,11 @@ ggsave(paste("TimeSeries of",Lagoon1,perm," Chile",".png"), plot = k, width = 20
 
 
 # Plotting the Total Water
-my.formula <- y ~ x
-o <- ggplot(my_df2, aes(x=Year, y=Area, group = Type)) +
+my.formula <- y ~ x + I(x^2)
+o <- ggplot(my_df2, aes(x=Year, y=as.numeric(Area), group = Type)) +
   geom_line(aes(colour = Type), size = .5) +
   geom_point(aes(colour = Type), size = 2) +
-  geom_smooth(method="loess", se=T, formula= my.formula) +
+  stat_smooth(method = "lm", formula = my.formula, size = .5) +
   scale_x_continuous(breaks=seq(2000, 2018, 1)) +
   geom_vline(xintercept=2010,linetype="dashed", color = "red") +
   stat_poly_eq(formula = my.formula,
@@ -569,15 +569,15 @@ ggsave(paste("TimeSeries of",Lagoon1,tot," Chile",".png"), plot = o, width = 20,
 
 
 # Plotting the Total Water
-my.formula <- y ~ x
-a <- ggplot(my_df3, aes(x=Year, y=Area, colour = Type)) +
+my.formula <- y ~ x + I(x^2)
+a <- ggplot(my_df3, aes(x=Year, y=as.numeric(Area), colour = Type)) +
   geom_line(aes(colour = Type), size = .5) +
   geom_point(aes(colour = Type), size = 2) +
-  geom_smooth(method="loess", se=T, formula= my.formula) +
+  stat_smooth(method = "lm", formula = my.formula, size = .5) +
   scale_x_continuous(breaks=seq(2000, 2018, 1)) +
   geom_vline(xintercept=2010,linetype="dashed", color = "red") +
-  stat_poly_eq(formula = my.formula,
-               aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
+  stat_poly_eq(aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
+               formula = my.formula,
                label.x = "left", label.y = "center",
                parse = TRUE) +
   labs(title = paste0("TimeSeries of Water Body in ",Lagoon1,", Chile"),

@@ -655,11 +655,11 @@ server <- function(input, output, session) {
               Type == input$typeInput,
        ))
     # Plot the Results using the ggplot2 package
-    my.formula <- y ~ x
+    my.formula <- y ~ x + I(x^2)
     ggplot(filtered, aes(Year, y=as.numeric(Area), group = input$typeInput)) +
       geom_line(aes(colour = Type), position = "stack", size = .5) +
       geom_point(aes(colour = Type), position = "stack", size = 2) +
-      geom_smooth(method="loess", se=TRUE, formula= my.formula) +
+      geom_smooth(method="lm", se=TRUE, formula= my.formula) +
       stat_poly_eq(formula = my.formula, 
                    aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
                    label.x = "left", label.y = "center",
@@ -681,11 +681,11 @@ server <- function(input, output, session) {
               Type == input$typeInput,
        ))
     
-    my.formula <- y ~ x
+    my.formula <- y ~ x + I(x^2)
     ggplot(filtered, aes(Year, y=as.numeric(Area), group = input$typeInput)) +
       geom_line(aes(colour = Type), position = "stack", size = .5) +
       geom_point(aes(colour = Type), position = "stack", size = 2) +
-      geom_smooth(method="loess", se=TRUE, formula= my.formula) +
+      geom_smooth(method="lm", se=TRUE, formula= my.formula) +
       stat_poly_eq(formula = my.formula, 
                    aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
                    label.x = "left", label.y = "center",
