@@ -502,7 +502,7 @@ p <- ggplot(my_df, aes(x=Year, y=as.numeric(Area), group = Type)) +
   geom_vline(xintercept=2010, linetype="dashed", color = "red") +
   stat_poly_eq(formula = my.formula,
                aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
-               label.x = "left", label.y = "bottom",
+               label.x = "left", label.y = "top",
                parse = TRUE) +
   labs(title = paste0("TimeSeries of ",sea," Water Body in ",Lagoon1,", Chile"),
        caption = "Source: EC JRC/Google") +
