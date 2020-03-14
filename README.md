@@ -11,12 +11,13 @@ Through this script an easy and fast way is proposed to observe the decrease ove
 The main __script__ that concerns us in this project is called [Project_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_Script.R) 
 Within this we can find code for:
 
- - Raster Data
- - Copy files to other folders
- - Archivos Tiff seleccionados por coincidencia de un Shapefile en su extensión para seleccionar esas imágenes Tiff y copiarlas a otra carpeta.
- - Shiny App
+ - Raster Data of Water Bodies.
+ - Copy files to other folders.
+ - Tiff files selected by match of a Shapefile in it extent 
+ - Select of Tiff images in an automatic form and copy to another folder.
+ - Shiny App.
  
-The second script that can be seen is called [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R) which was generated to obtain the images that were used for the __QGIS__ project of the [Master EAGLE](http://eagle-science.org/) and was intended to work with mosaics at the country level and cut entire regions with memory efficiency. Within this you can find the main up grade with reference to the previous code:
+The second script that can be seen is called [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R) which was generated to obtain the images that were used for the [QGIS](https://www.qgis.org/en/site/) project of the [Master EAGLE](http://eagle-science.org/) and was intended to work with mosaics at the country level and cut entire regions with memory efficiency. Within this you can find the main up grade with reference to the previous code:
 
  - Command to call [GDAL](https://gdal.org/) in [QGIS](https://www.qgis.org/en/site/) from [RStudio](https://rstudio.com/)
  - Crop the area from a shapefile without using the temporary file from RStudio.
