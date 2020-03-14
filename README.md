@@ -13,7 +13,7 @@ Within this we can find code for:
 
  - Raster Data
  - Copy files to other folders
- - Tiff files selected by means of a Shape
+ - Archivos Tiff seleccionados por coincidencia de un Shapefile en su extensión para seleccionar esas imágenes Tiff y copiarlas a otra carpeta.
  - Shiny App
  
 The second script that can be seen is called [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R) which was generated to obtain the images that were used for the __QGIS__ project of the [Master EAGLE](http://eagle-science.org/) and was intended to work with mosaics at the country level and cut entire regions with memory efficiency. Within this you can find the main up grade with reference to the previous code:
