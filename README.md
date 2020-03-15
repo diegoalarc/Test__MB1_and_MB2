@@ -3,10 +3,15 @@
 # Codes for the approval of the MB1 and MB2 [Master EAGLE](http://eagle-science.org/) courses at the Julius-Maximilians-Universität Würzburg, Germany.
 The first __script__ corresponds to the project for the [MB2 course Introduction to Programming and Geostatistics](http://eagle-science.org/project/programming-and-geostatistical-analysis/).
 
+## The first __script__ corresponds to the MB2 course.
 
-Through this script an easy and fast way is proposed to observe the decrease over time of the water level of the Acualeo Lagoon in Chile. It is also possible to modify this code to observe other gaps in the world, using the data provided by [Global SDG database](https://www.sdg661.app/data-products/data-downloads) and a a preset georeferenced area (which can be changed by a Shapefile).
+Through this first script an easy and fast way is proposed to observe the decrease over time of the water level of the Acualeo Lagoon in Chile. It is also possible to modify this code to observe other gaps in the world, using the data provided by [Global SDG database](https://www.sdg661.app/data-products/data-downloads) and a a preset georeferenced area (which can be changed by a Shapefile).
 
-## Scripts
+## The second __script__ corresponds to the MB1 course.
+
+This second script was intended to work with mosaics at the country level and cut entire regions with memory efficiency. Within this, you can find an up grade with reference to the previous code for images and / or mosaics, which take up more resources on a computer.
+
+## Scripts Overviews
 
 The main __script__ that concerns us in this project is called [Project_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_Script.R) which corresponds to the [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course of the [Master EAGLE](http://eagle-science.org/).
 Within this we can find code for:
@@ -17,9 +22,9 @@ Within this we can find code for:
  - Select of Tiff images in an automatic form and copy to another folder.
  - Shiny App.
  
-The second __script__ corresponds to the MB1 course.
 
-Through this second script that is called [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R) and it was generated to obtain the images that were used for the [QGIS](https://www.qgis.org/en/site/) project which corresponds to the [MB1 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/) of the [Master EAGLE](http://eagle-science.org/) and was intended to work with mosaics at a country level and cut entire regions with memory efficiency. Within this, you can find a better one with reference to the previous code for images and / or mosaics, which occupy more resources in a computer
+The second __script__ that is called [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R) and it was generated to obtain the images that were used for the [QGIS](https://www.qgis.org/en/site/) project which corresponds to the [MB1 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/) of the [Master EAGLE](http://eagle-science.org/).
+
 
  - Command to call [GDAL](https://gdal.org/) in [QGIS](https://www.qgis.org/en/site/) from [RStudio](https://rstudio.com/)
  - Crop the area from a shapefile without using the temporary file from RStudio.
