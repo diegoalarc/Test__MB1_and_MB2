@@ -6,14 +6,14 @@
 
 # Originally written by Diego Alonso Alarcon Diaz in January 2020, latest Version: March 2020
 # Code is good to go!
-#
+
 # To keep the created code in order, it is suggested to use the following package:
 # https://cran.r-project.org/web/packages/styler/styler.pdf
 #if(!require(styler)){
 #  install.packages("styler")
 #  library(styler)
 #}
-#
+
 # It is necessary to check if the packages are install in  RStudio
 
 if(!require(gganimate)){
