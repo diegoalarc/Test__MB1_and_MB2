@@ -1,6 +1,6 @@
 !["Uni Wuerzburg"](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Total_Water/EAGLE_logo.png?raw=true "EAGLE Msc")
 
-# Codes for the approval of the MB1 and MB2 Master EAGLE courses at the Julius-Maximilians-Universität Würzburg, Germany.
+# Codes for the approval of the MB1 and MB2 [Master EAGLE](http://eagle-science.org/) courses at the Julius-Maximilians-Universität Würzburg, Germany.
 The first __script__ corresponds to the project for the MB2 course Introduction to Programming and Geostatistics.
 
 
@@ -8,7 +8,7 @@ Through this script an easy and fast way is proposed to observe the decrease ove
 
 ## Scripts
 
-The main __script__ that concerns us in this project is called [Project_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_Script.R) which corresponds to the MB2 course.
+The main __script__ that concerns us in this project is called [Project_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_Script.R) which corresponds to the MB2 course of the [Master EAGLE](http://eagle-science.org/).
 Within this we can find code for:
 
  - Raster Data of Water Bodies.
@@ -19,7 +19,7 @@ Within this we can find code for:
  
 The second __script__ corresponds to the MB1 course.
 
-Through this second script that is called [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R) and it was generated to obtain the images that were used for the [QGIS](https://www.qgis.org/en/site/) project of the [Master EAGLE](http://eagle-science.org/) and was intended to work with mosaics at a country level and cut entire regions with memory efficiency. Within this, you can find a better one with reference to the previous code for images and / or mosaics, which occupy more resources in a computer
+Through this second script that is called [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R) and it was generated to obtain the images that were used for the [QGIS](https://www.qgis.org/en/site/) project which corresponds to the MB1 course of the [Master EAGLE](http://eagle-science.org/) and was intended to work with mosaics at a country level and cut entire regions with memory efficiency. Within this, you can find a better one with reference to the previous code for images and / or mosaics, which occupy more resources in a computer
 
  - Command to call [GDAL](https://gdal.org/) in [QGIS](https://www.qgis.org/en/site/) from [RStudio](https://rstudio.com/)
  - Crop the area from a shapefile without using the temporary file from RStudio.
