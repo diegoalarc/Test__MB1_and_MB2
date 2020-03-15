@@ -1,14 +1,14 @@
 !["Uni Wuerzburg"](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Total_Water/EAGLE_logo.png?raw=true "EAGLE Msc")
 
 # Codes for the approval of the MB1 and MB2 [Master EAGLE](http://eagle-science.org/) courses at the Julius-Maximilians-Universität Würzburg, Germany.
-The first __script__ corresponds to the project for the MB2 course Introduction to Programming and Geostatistics.
+The first __script__ corresponds to the project for the [MB2 course Introduction to Programming and Geostatistics](http://eagle-science.org/project/programming-and-geostatistical-analysis/).
 
 
 Through this script an easy and fast way is proposed to observe the decrease over time of the water level of the Acualeo Lagoon in Chile. It is also possible to modify this code to observe other gaps in the world, using the data provided by [Global SDG database](https://www.sdg661.app/data-products/data-downloads) and a a preset georeferenced area (which can be changed by a Shapefile).
 
 ## Scripts
 
-The main __script__ that concerns us in this project is called [Project_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_Script.R) which corresponds to the MB2 course of the [Master EAGLE](http://eagle-science.org/).
+The main __script__ that concerns us in this project is called [Project_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_Script.R) which corresponds to the [MB2 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/) of the [Master EAGLE](http://eagle-science.org/).
 Within this we can find code for:
 
  - Raster Data of Water Bodies.
