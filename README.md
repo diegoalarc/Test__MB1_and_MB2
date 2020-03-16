@@ -8,7 +8,6 @@
 
 Through this first script an easy and fast way is proposed to observe the decrease over time of the water level of the Acualeo Lagoon in Chile. It is also possible to modify this code to observe other gaps in the world, using the data provided by [Global SDG database](https://www.sdg661.app/data-products/data-downloads) and a a preset georeferenced area (which can be changed by a Shapefile).
 
----
 
 ## The second __script__ corresponds to the project for the [MB1 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/).
 
@@ -26,10 +25,7 @@ Within this we can find code for:
  - Select of Tiff images in an automatic form and copy to another folder.
  - Use [Shiny App](https://shiny.rstudio.com/).
  
----
-
 The second __script__ that is called [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R) and it was generated to obtain the images that were used for the [QGIS](https://www.qgis.org/en/site/) project which corresponds to the [MB1 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/) of the [Master EAGLE](http://eagle-science.org/).
-
 
  - Command to call [GDAL](https://gdal.org/) in [QGIS](https://www.qgis.org/en/site/) from [RStudio](https://rstudio.com/)
  - Crop the area from a shapefile without using the temporary file from RStudio through [GDAL](https://gdal.org/).
