@@ -15,7 +15,7 @@ Through this first script an easy and fast way is proposed to observe the decrea
 
 Corresponds to the project for the [MB1 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/).
 
-This second script was intended to work with mosaics at the country level and cut entire regions with memory efficiency. Within this, you can find an up grade with reference to the previous code for images and mosaics, which take up more resources on a computer.
+This second script was intended to work with mosaics at the country level and cut entire regions with memory efficiency. Within this, you can find a higher rating with reference to the previous code for images and mosaics, and a direct way to save plotted graphics for each type of water body. The products of this script were used in conjunction with [QGIS](https://www.qgis.org/en/site/) to generate a final map that shows the decrease in the body of water of the Aculeo lagoon between 2010 and 2018.
 
 ***
 ## Scripts Overviews
