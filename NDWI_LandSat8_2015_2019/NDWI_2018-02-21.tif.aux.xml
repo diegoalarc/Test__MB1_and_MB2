@@ -1,0 +1,11 @@
+<PAMDataset>
+  <PAMRasterBand band="1">
+    <Metadata>
+      <MDI key="STATISTICS_MAXIMUM">-inf</MDI>
+      <MDI key="STATISTICS_MEAN">nan</MDI>
+      <MDI key="STATISTICS_MINIMUM">inf</MDI>
+      <MDI key="STATISTICS_STDDEV">nan</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">0</MDI>
+    </Metadata>
+  </PAMRasterBand>
+</PAMDataset>
