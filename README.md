@@ -72,6 +72,9 @@ The second __script__ that is called [Project_QGIS_Script.R](https://github.com/
  
 ![Seasonal Water - Change detection from 2010 to 2018](https://github.com/diegoalarc/Test__MB1_and_MB2/blob/master/Change_detection/Change_detection_Seasonal_2010_2018.png?raw=true "Seasonal Water - Change detection from 2010 to 2018")
 
+ - NDWI - Example of 2015-11-28.
+ 
+![NDWI - Example of 2015-11-28](https://github.com/diegoalarc/Test__MB1_and_MB2/blob/master/NDWI_LandSat8_2015_2019/NDWI_2015-11-28.png?raw=true "NDWI - Example of 2015-11-28")
 
  - Click in the following link to download the final file in the total resolution of the map ["Aculeo Lagoon TimeSeries drought map from 2010 - 2018"](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Map_QGIS_Generated/QGIS_EAGLE_Msc.pdf).
 
