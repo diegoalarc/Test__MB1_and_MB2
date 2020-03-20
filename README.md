@@ -17,6 +17,11 @@ Corresponds to the project for the [MB1 course Digital Image Analysis and GIS](h
 
 This second script was intended to work with mosaics at the country level and cut entire regions with memory efficiency. Within this, you can find a higher rating with reference to the previous code for images and mosaics, and a direct way to save plotted graphics for each type of water body. The products of this script. Using the OTB toolbox by [QGIS](https://www.qgis.org/en/site/)  it was used for change detection making an iteration of the different tiff image created by the R Script. It was possible to made a unique Tiff where was differenced by its Digital Number for each unique year which represent the state of the art of Permanet and Seasonal water to generate a final map that shows the decrease in the body of water of the Aculeo lagoon between 2010 and 2018. It is necessary to add that by means of the histogram visualization of the digital pixel values of the new TIFF created with change detection, the ranges of each year were obtained and classified with different colors for an easier visual representation for the users.
 
+In parallel, LandSat 8 images were used with which the Normalized Difference Water Index was calculated using the McFeeters Method, 1996. This is based on the substitution of the SWIR band by the visible green band, highlighting the water masses. In this case, the relation of analysis of multispectral bands will be:
+
+$$NDWI=\frac{(GREEN-NIR)}{(GREEN+NIR)}$$
+
+
 ***
 ## *Scripts Overviews*
 

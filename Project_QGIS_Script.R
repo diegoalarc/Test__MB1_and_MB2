@@ -458,6 +458,7 @@ sea <- " Seasonal"
 perm <- " Permanent"
 tot <- " Total"
 
+setwd(paste0(hard_drive,"Data/Data_Frame/",Lagoon))
 # Reading the data saved the data as Data Frame
 my_df = read.csv(paste0(Lagoon,"_Seasonal",".csv"), header=TRUE, sep=",")
 my_df1 = read.csv(paste0(Lagoon,"_Permanent",".csv"), header=TRUE)
@@ -500,6 +501,7 @@ p <- ggplot(my_df, aes(x=Year, y=as.numeric(Area), group = Type)) +
   stat_smooth(method = "lm", formula = my.formula, size = .5) +
   scale_x_continuous(breaks=seq(2000, 2018, 1)) +
   geom_vline(xintercept=2010, linetype="dashed", color = "red") +
+  theme(legend.justification = "top") + 
   stat_poly_eq(formula = my.formula,
                aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
                label.x = "left", label.y = "top",
@@ -524,6 +526,7 @@ k <- ggplot(my_df1, aes(x=Year, y=as.numeric(Area), group = Type)) +
   stat_smooth(method = "lm", formula = my.formula, size = .5) +
   scale_x_continuous(breaks=seq(2000, 2018, 1)) +
   geom_vline(xintercept=2010, linetype="dashed", color = "red") +
+  theme(legend.justification = "top") + 
   stat_poly_eq(formula = my.formula,
                aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
                label.x = "left", label.y = "bottom",
@@ -548,6 +551,7 @@ o <- ggplot(my_df2, aes(x=Year, y=as.numeric(Area), group = Type)) +
   stat_smooth(method = "lm", formula = my.formula, size = .5) +
   scale_x_continuous(breaks=seq(2000, 2018, 1)) +
   geom_vline(xintercept=2010,linetype="dashed", color = "red") +
+  theme(legend.justification = "top") + 
   stat_poly_eq(formula = my.formula,
                aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
                label.x = "left", label.y = "bottom",
@@ -572,8 +576,10 @@ a <- ggplot(my_df3, aes(x=Year, y=as.numeric(Area), colour = Type)) +
   stat_smooth(method = "lm", formula = my.formula, size = .5) +
   scale_x_continuous(breaks=seq(2000, 2018, 1)) +
   geom_vline(xintercept=2010,linetype="dashed", color = "red") +
+  theme(legend.justification = "top") + 
   stat_poly_eq(formula = my.formula, 
-               aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")), 
+               aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
+               label.x = "left", label.y = "middle",
                parse = TRUE) + 
   labs(title = paste0("TimeSeries of Water Body in ",Lagoon1,", Chile"),
        caption = "Source: EC JRC/Google") +
