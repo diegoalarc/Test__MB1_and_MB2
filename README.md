@@ -19,7 +19,7 @@ This second script was intended to work with mosaics at the country level and cu
 
 In parallel using [QGIS](https://www.qgis.org/en/site/), [LandSat 8](https://www.usgs.gov/land-resources/nli/landsat/landsat-8) images were used with which the Normalized Difference Water Index was calculated using the McFeeters Method, 1996. This is based on the substitution of the SWIR band by the visible green band, highlighting the water masses. In this case, the relation of analysis of multispectral bands will be:
 
-$$NDWI=\frac{(GREEN-NIR)}{(GREEN+NIR)}$$
+![equation](http://www.sciweavers.org/tex2img.php?eq=NDWI%3D%5Cfrac%7B%28GREEN-NIR%29%7D%7B%28GREEN%2BNIR%29%7D%0A&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
 
 With the above, a Time Series analysis was generated between 2015 and 2019 with a temporal resolution of approximately 15 day to be able to observe the behavior of the body of water using data from another satellite and at the same time obtain the vacuum between 2018 and 2019. It could be observed that after the lagoon dried up it was not observed again that it reappeared.
 
