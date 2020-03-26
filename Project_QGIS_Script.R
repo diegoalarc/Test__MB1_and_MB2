@@ -157,17 +157,13 @@ all_IMAGE <- list.files(IMAGE_path,
                         full.names = TRUE,
                         pattern = ".tif$")
 
-#Create a List of Raster Files
-aculeo_names <- list()
+#Create a stack of Raster Files with all the *.tiff images
+aculeo_names <- stack(all_IMAGE)
 
-#For-loop to create a Raster Files with all the *.tiff images
-for (i in 1:length(all_IMAGE)){
-  aculeo_names[[i]] <- raster(all_IMAGE[i])
-}
 
 my_years <- vector(mode="character")
 
-for (i in 1:length(aculeo_names)) {
+for (i in 1:nlayers(aculeo_names)) {
   my_years[[i]] <- substr(names(aculeo_names[[i]]), start=15, stop=18)
 }
 
@@ -213,25 +209,21 @@ Water_all_IMAGE <- list.files(Water_IMAGE_path,
                               full.names = TRUE,
                               pattern = ".tif$")
 
-# Create a List of Raster Files
-Water <- list()
+#Create a stack of Raster Files with all the *.tiff Water_all_IMAGE
+Water <- stack(Water_all_IMAGE)
 
-# For-loop to create a Raster Files with all the *.tiff images
-for (i in 1:length(Water_all_IMAGE)){
-  Water[[i]] <- raster(Water_all_IMAGE[i])
-}
 
 #Create the vector with the name file
 names_file <- vector(mode="character")
 
 #For-loop to obtain the name file for all the raster in one vector file
 #which will be used when the rasters file will be saved
-for (i in 1:length(Water)){
+for (i in 1:nlayers(Water)){
   names_file[[i]] <- names(Water[[i]])
 }
 
 # For-loop to create a brick of differents types of water
-for (i in 1:length(Water)){
+for (i in 1:nlayers(Water)){
   
   # Create a List of differents types of water
   t_Seasonal <- list()
@@ -328,9 +320,6 @@ for (i in 1:length(my_years)) {
 
 #################################333
 
-# Create a List for a temporal Stack
-tmp_Stack1 <- list()
-
 # Create the path where Seasonal *.tiff images we will use.
 IMAGE_path2 <- paste0(hard_drive,"Data/",Lagoon,"/Seasonal_Water/")
 
@@ -340,10 +329,6 @@ all_IMAGE2 <- list.files(IMAGE_path2,
                          pattern = ".tif$")
 # Temporal Stack for all the Seasonal *.tiff images
 tmp_Stack1 <- stack(all_IMAGE2)
-
-
-# Create a List for a second temporal Stack
-tmp_Stack2 <- list()
 
 # Create the path where Permanent *.tiff images we will use.
 IMAGE_path3 <- paste0(hard_drive,"Data/",Lagoon,"/Permanent_Water/")
@@ -355,16 +340,14 @@ all_IMAGE3 <- list.files(IMAGE_path3,
 # Second Temporal Stack for all the Seasonal *.tiff images
 tmp_Stack2 <- stack(all_IMAGE3)
 
-
-# Create a List for a third temporal Stack
-tmp_Stack3 <- list()
-
 # Load all the images in one list.
 IMAGE_path4 <- paste0(hard_drive,"Data/",Lagoon,"/Total_Water/")
+
 # Load all the images in one list.
 all_IMAGE4 <- list.files(IMAGE_path4,
                          full.names = TRUE,
                          pattern = ".tif$")
+
 # Third Temporal Stack for all the Seasonal *.tiff images
 tmp_Stack3 <- stack(all_IMAGE4)
 

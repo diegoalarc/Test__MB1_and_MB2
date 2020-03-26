@@ -114,8 +114,6 @@ all_IMAGE4 <- list.files(IMAGE_path4,
                          full.names = TRUE,
                          pattern = ".tif$")
 # Third Temporal Stack for all the Seasonal *.tiff images
-tmp_Stack1 <- list()
-
 tmp_Stack1 <- stack(all_IMAGE4)
 
 

@@ -178,13 +178,8 @@ Water_all_IMAGE <- list.files(Water_IMAGE_path,
                               full.names = TRUE,
                               pattern = ".tif$")
 
-# Create a List of Raster Files
-water_aculeo_raster <- list()
-
-# For-loop to create a Raster Files with all the *.tiff images
-for (i in 1:length(Water_all_IMAGE)){ 
-  water_aculeo_raster[[i]] <- raster(Water_all_IMAGE[i])
-}
+# Create a stack of Raster Files with all the *.tiff Water_all_IMAGE
+water_aculeo_raster <- stack(Water_all_IMAGE)
 
 #######################################################
 
@@ -192,7 +187,7 @@ for (i in 1:length(Water_all_IMAGE)){
 crop_list <- list()
 
 # For-loop to crop the raster in order to obtain the study area
-for (i in 1:length(water_aculeo_raster)){
+for (i in 1:nlayers(water_aculeo_raster)){
   crop_list[[i]] <- crop(water_aculeo_raster[[i]],aculeo_extent)
 }
 
@@ -205,17 +200,13 @@ for (i in 1:length(crop_list)){
   names_file[[i]] <- names(crop_list[[i]])
 }
 
-#Create a List of Raster Files
-Water <- list()
+#Create a stack of Raster Files with all the *.tiff cropped
+Water <- stack(crop_list)
 
-#For-loop to create a Raster Files with all the *.tiff images
-for (i in 1:length(crop_list)){
-  Water[[i]] <- brick(crop_list[[i]])
-}
 #######################################################
 
 # For-loop to create a brick of differents types of water
-for (i in 1:length(Water)){
+for (i in 1:nlayers(Water)){
   
   # Create a List of differents types of water
   t_Seasonal <- list()
@@ -232,7 +223,6 @@ for (i in 1:length(Water)){
     
   # The raster files will be classified according to what is indicated on the website  
   t_Seasonal <- clusterR(Water[[i]], reclassify, args = list(rcl = c(0, 1, NA, 1, 2, 1, 2, 3, NA)), progress = "text")
-  
   
   # Setting path for Seasonal Water
   setwd("C:/Data/Seasonal_Water/")
@@ -252,7 +242,7 @@ for (i in 1:length(Water)){
   # The raster files will be classified according to what is indicated on the website
   t_Permanent <- clusterR(Water[[i]], reclassify, args = list(rcl = c(0, 2, NA, 2, 3, 1)), progress = "text")
   
-    # Setting path for Permanent Water
+  # Setting path for Permanent Water
   setwd("C:/Data/Permanent_Water/")
   
   # Save the Raster with a specific name
@@ -279,9 +269,6 @@ rm(Country,yr)
 
 #######################################################
 
-# Create a List for a temporal Stack
-tmp_Stack1 <- list()
-
 # Create the path where Seasonal *.tiff images we will use.
 IMAGE_path2 <- "C:/Data/Seasonal_Water/"
 
@@ -289,12 +276,9 @@ IMAGE_path2 <- "C:/Data/Seasonal_Water/"
 all_IMAGE2 <- list.files(IMAGE_path2,
                          full.names = TRUE,
                          pattern = ".tif$")
+
 # Temporal Stack for all the Seasonal *.tiff images
 tmp_Stack1 <- stack(all_IMAGE2)
-
-
-# Create a List for a second temporal Stack
-tmp_Stack2 <- list()
 
 # Create the path where Permanent *.tiff images we will use.
 IMAGE_path3 <- "C:/Data/Permanent_Water/"
@@ -303,19 +287,18 @@ IMAGE_path3 <- "C:/Data/Permanent_Water/"
 all_IMAGE3 <- list.files(IMAGE_path3,
                          full.names = TRUE,
                          pattern = ".tif$")
+
 # Second Temporal Stack for all the Seasonal *.tiff images
 tmp_Stack2 <- stack(all_IMAGE3)
 
-
-# Create a List for a third temporal Stack
-tmp_Stack3 <- list()
-
 # Load all the images in one list.
 IMAGE_path4 <- "C:/Data/Total_Water/"
+
 # Load all the images in one list.
 all_IMAGE4 <- list.files(IMAGE_path4,
                          full.names = TRUE,
                          pattern = ".tif$")
+
 # Third Temporal Stack for all the Seasonal *.tiff images
 tmp_Stack3 <- stack(all_IMAGE4)
 
