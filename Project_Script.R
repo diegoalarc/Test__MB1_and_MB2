@@ -530,6 +530,8 @@ if(!file.exists(paste0(reswd,"/Total.gif"))) {
 # Disabling the cores on the device when the process ends
 endCluster()
 
+setwd("/Data/")# Setting path
+
 #######################################################
 # Creation and display of a Shiny App in RStudio
 
@@ -654,7 +656,10 @@ server <- function(input, output, session) {
       labs(title = paste("TimeSeries ",Lagoon), subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
            caption = "Source: EC JRC/Google") +
       xlab("Year") + ylab("Area"~Km^2) + 
-      theme_light()
+      theme(axis.text.x = element_text(face="bold", color="#993333",
+                                       size=15, angle=270),
+            axis.text.y = element_text(face="bold", color="#993333",
+                                       size=17, angle=0))
     
   })
   
@@ -680,7 +685,10 @@ server <- function(input, output, session) {
       labs(title = paste("TimeSeries ",Lagoon), subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
            caption = "Source: EC JRC/Google") +
       xlab("Year") + ylab("Area"~Km^2) + 
-      theme_light()
+      theme(axis.text.x = element_text(face="bold", color="#993333",
+                                       size=15, angle=270),
+            axis.text.y = element_text(face="bold", color="#993333",
+                                       size=17, angle=0))
   }
   
   #######################################################
@@ -690,8 +698,8 @@ server <- function(input, output, session) {
     filename = paste("Choose_a_name.png", sep=''),
     content = function(file) {
       device <- function(..., width, height) {
-        grDevices::png(..., width = width, height = height,
-                       res = 500, units = "in")
+        grDevices::png(..., width = 20, height = 10,
+                       res = 500, units = "cm")
       }
       ggsave(file, plot = plotInput(), device = device)
     })
@@ -701,7 +709,7 @@ server <- function(input, output, session) {
   output$preImage <- renderImage({
     # Created the file name from the information of the radio Buttons in order to 
     # display the *.GIF image to the whole period of time for a type of water body
-    filename <- normalizePath(file.path('c:/Data/GIF',
+    filename <- normalizePath(file.path(getwd(),'GIF',
                                         paste(input$typeInput1, '.gif', sep='')))
     
     # Return a list containing the filename and alt text
@@ -714,7 +722,7 @@ server <- function(input, output, session) {
   output$Image <- renderImage({
     # Created the file name from the information of the radio Buttons in order to 
     # display the *.png image for an specific period of time and type of water body
-    filename <- normalizePath(file.path('c:/Data',
+    filename <- normalizePath(file.path(getwd(),
                                         paste(input$typeInput2,"_Water_Color/",input$typeInput2," Water for Aculeo Lagoon ",input$yearsInput2," Chile",".png", sep='')))
     
     # Return a list containing the filename and alt text
