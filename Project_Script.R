@@ -70,15 +70,22 @@ if(!require(devtools)){
   install.packages("devtools")
   library(devtools)
 }
+if(!require(svDialogs)){
+  install.packages(c("svGUI", "svDialogs"))
+  library(svDialogs)
+}
+#######################################################
+# It is necessary to set and create the folders 
+# the folders before hand to storage the data
+
+# dlg_dir() #######################################################
+# Here you can define the path where all the information will be stored
+setwd(dlg_dir(default = getwd())$res)
 
 #######################################################
 
-# It is necessary to set and create the folders 
-# the folders before hand to storage the data
-setwd("c:/")# Setting path
 dir.create("Data")# Create folder
-
-setwd("c:/Data/")# Setting path
+setwd("/Data/")# Setting path
 dir.create("GIF")# Create folder
 dir.create("Permanent_Water")# Create folder
 dir.create("Seasonal_Water")# Create folder
@@ -91,8 +98,8 @@ dir.create("Total_Water_Color")# Create folder
 
 #######################################################
 
-tempdl <- "c:/Data/Chile_all.zip"
-setwd("c:/Data/Data_Bruto/")
+tempdl <- file.path(getwd(),"Chile_all.zip")
+
 
 # The data necessary for this project will be automatically download
 # It is also possible just changing the /Chile_all.zip to another country download the data
@@ -105,11 +112,12 @@ Lagoon <- "Aculeo Lagoon"
 beginCluster()
 
 # Here is necessary to check if the data was downloaded and then unzip the content
+
 if (!file.exists(tempdl)) {
   download.file(fileURL ,tempdl, mode="wb")
-  unzip(tempdl,exdir = ".",overwrite = TRUE)
+  unzip(tempdl, exdir = file.path(getwd(),"Data_Bruto"),overwrite = TRUE)
 } else {
-  unzip(tempdl,exdir = ".",overwrite = TRUE)
+  unzip(tempdl, exdir = file.path(getwd(),"Data_Bruto"),overwrite = TRUE)
 }
 
 #######################################################
@@ -129,9 +137,8 @@ spdf = SpatialPolygonsDataFrame(sps,data)
 aculeo_extent <- spdf
 
 # Identify the folders
-toFolder <- "c:/Data/Zona_Study/"
-
-setwd("c:/Data/Data_Bruto/")# Setting path
+setwd("/Data/")# Setting path
+toFolder <- file.path(getwd(),"Zona_Study/")
 
 #######################################################
 
@@ -142,7 +149,7 @@ setwd("c:/Data/Data_Bruto/")# Setting path
 #######################################################
 
 # Change path to folder containing rasters
-rasdir <- 'C:/Data/Data_Bruto/'
+rasdir <- file.path(getwd(),"Data_Bruto/")
 
 # List all GeoTIFF files in folder, change extension in pattern if different format
 fllst <- list.files(path=rasdir, pattern=c("^Chile_classes_(.*).tif$"), full.names=T)
@@ -168,10 +175,10 @@ for (fl in fllst){
 file.copy(file.path(newlst), toFolder, overwrite=TRUE)
 
 # Delete the directory "Data_Bruto"
-unlink("c:/Data/Data_Bruto", recursive = TRUE, force = TRUE)
+unlink("./Data_Bruto", recursive = TRUE, force = TRUE)
 
 # Create the path where are all the *.tiff images we will use.
-Water_IMAGE_path <- "C:/Data/Zona_Study/"
+Water_IMAGE_path <- file.path(getwd(),"Zona_Study/")
 
 # Load all the images in one list.
 Water_all_IMAGE <- list.files(Water_IMAGE_path,
@@ -212,7 +219,7 @@ for (i in 1:nlayers(Water)){
   t_Seasonal <- list()
   t_Permanent <- list()
   t_water <- list()
-
+  
   # https://www.sdg661.app/data-products/data-downloads
   # Classifications 2000-2018. One file per year. This Yearly Seasonality Classification 
   # collection contains annula seasonality maps. Each file has one band with 3 possible values:
@@ -220,12 +227,9 @@ for (i in 1:nlayers(Water)){
   # 1  Not water (i.e. Land)
   # 2  Seasonal water
   # 3  Permanent water
-    
+  
   # The raster files will be classified according to what is indicated on the website  
   t_Seasonal <- clusterR(Water[[i]], reclassify, args = list(rcl = c(0, 1, NA, 1, 2, 1, 2, 3, NA)), progress = "text")
-  
-  # Setting path for Seasonal Water
-  setwd("C:/Data/Seasonal_Water/")
   
   # Extract Country
   Country <- substr(names(Water[[i]]), start=1, stop=5)
@@ -234,7 +238,7 @@ for (i in 1:nlayers(Water)){
   yr <- substr(names(Water[[i]]), start=15, stop=18)
   
   # Save the Raster with a specific name
-  s_list <- writeRaster(t_Seasonal, filename=paste0("Seasonal_Water_for ",Lagoon,"_",yr,"_",Country), format='GTiff', overwrite=T)
+  s_list <- writeRaster(t_Seasonal, filename=file.path(getwd(),"Seasonal_Water",paste0("Seasonal_Water_for ",Lagoon,"_",yr,"_",Country)), format='GTiff', overwrite=T)
   
   # Remove lists
   rm(t_Seasonal)
@@ -242,11 +246,8 @@ for (i in 1:nlayers(Water)){
   # The raster files will be classified according to what is indicated on the website
   t_Permanent <- clusterR(Water[[i]], reclassify, args = list(rcl = c(0, 2, NA, 2, 3, 1)), progress = "text")
   
-  # Setting path for Permanent Water
-  setwd("C:/Data/Permanent_Water/")
-  
   # Save the Raster with a specific name
-  s_list <- writeRaster(t_Permanent, filename=paste0("Permanent_Water_for_",Lagoon,"_",yr,"_",Country), format='GTiff', overwrite=T)
+  s_list <- writeRaster(t_Permanent, filename=file.path(getwd(),"Permanent_Water",paste0("Permanent_Water_for_",Lagoon,"_",yr,"_",Country)), format='GTiff', overwrite=T)
   
   # Remove lists
   rm(t_Permanent)
@@ -254,11 +255,8 @@ for (i in 1:nlayers(Water)){
   # The raster files will be classified according to what is indicated on the website
   t_water <- clusterR(Water[[i]], reclassify, args = list(rcl = c(0, 1, NA, 1, 3, 1)), progress = "text")
   
-  # Setting path for Total Water (Permanent + Seasonal)
-  setwd("C:/Data/Total_Water/")
-  
   # Save the Raster with a specific name
-  s_list <- writeRaster(t_water, filename=paste0("Total_Water_for_",Lagoon,"_",yr,"_",Country), format='GTiff', overwrite=T)
+  s_list <- writeRaster(t_water, filename=file.path(getwd(),"Total_Water",paste0("Total_Water_for_",Lagoon,"_",yr,"_",Country)), format='GTiff', overwrite=T)
   
   # Remove lists
   rm(t_water)
@@ -270,7 +268,7 @@ rm(Country,yr)
 #######################################################
 
 # Create the path where Seasonal *.tiff images we will use.
-IMAGE_path2 <- "C:/Data/Seasonal_Water/"
+IMAGE_path2 <- file.path(getwd(),"Seasonal_Water")
 
 # Load all the images in one list.
 all_IMAGE2 <- list.files(IMAGE_path2,
@@ -281,7 +279,7 @@ all_IMAGE2 <- list.files(IMAGE_path2,
 tmp_Stack1 <- stack(all_IMAGE2)
 
 # Create the path where Permanent *.tiff images we will use.
-IMAGE_path3 <- "C:/Data/Permanent_Water/"
+IMAGE_path3 <- file.path(getwd(),"Permanent_Water")
 
 # Load all the images in one list.
 all_IMAGE3 <- list.files(IMAGE_path3,
@@ -292,7 +290,7 @@ all_IMAGE3 <- list.files(IMAGE_path3,
 tmp_Stack2 <- stack(all_IMAGE3)
 
 # Load all the images in one list.
-IMAGE_path4 <- "C:/Data/Total_Water/"
+IMAGE_path4 <- file.path(getwd(),"Total_Water")
 
 # Load all the images in one list.
 all_IMAGE4 <- list.files(IMAGE_path4,
@@ -421,12 +419,15 @@ if(!require(GISTools)){
   library(GISTools)
 }
 
+setwd("/Data/")# Setting path
 # Save a path where the *.GIF file will be save
-reswd <- "c:/Data/GIF/"
+color_image_path <- file.path(getwd())
+# Save a path where the *.PNG file will be save
+reswd <- file.path(getwd(),"GIF")
 # Here it will be check out if the .GIF was created otherwise the code will run
-if(!file.exists(paste0(reswd,"Seasonal.gif"))) {
+if(!file.exists(paste0(reswd,"/Seasonal.gif"))) {
   # Set the folder where the *.png files will be created
-  setwd("c:/Data/Seasonal_Water_Color/")
+  setwd(file.path(getwd(),"Seasonal_Water_Color/"))
   # For-loop to create *.png files for Seasonal Water
   for (i in 1:dim(tmp_Stack1)[3]){
     # Extract Country
@@ -447,19 +448,21 @@ if(!file.exists(paste0(reswd,"Seasonal.gif"))) {
     dev.off()
   }
   # Set the folder where the *.GIF file will be created
-  setwd("c:/Data/GIF/")
+  setwd("/Data/GIF/")
   # Creation of the * .GIF file listing different * .png files in order of name (sorted by years)
-  list.files(path="c:/Data/Seasonal_Water_Color/", pattern = '*.png', full.names = TRUE) %>% 
+  list.files(path = file.path(color_image_path,"Seasonal_Water_Color/"), pattern = '*.png', full.names = TRUE) %>% 
     image_read() %>% # reads each path file
     image_join() %>% # joins image
     image_animate(fps=1) %>% # animates, can opt for number of loops
     image_write("Seasonal.gif") # write to current dir
 }
 
+setwd("/Data/")# Setting path
+
 # Here it will be check out if the .GIF was created otherwise the code will run
-if(!file.exists(paste0(reswd,"Permanent.gif"))) {
+if(!file.exists(paste0(reswd,"/Permanent.gif"))) {
   # Set the folder where the *.png files will be created
-  setwd("c:/Data/Permanent_Water_Color/")
+  setwd(file.path(getwd(),"Permanent_Water_Color/"))
   # For-loop to create *.png files for Permanent Water
   for (i in 1:dim(tmp_Stack1)[3]){
     # Extract Country
@@ -480,19 +483,21 @@ if(!file.exists(paste0(reswd,"Permanent.gif"))) {
     dev.off()
   }
   # Set the folder where the *.GIF file will be created
-  setwd("c:/Data/GIF/")
+  setwd("/Data/GIF/")
   # Creation of the * .GIF file listing different * .png files in order of name (sorted by years)
-  list.files(path="c:/Data/Permanent_Water_Color/", pattern = '*.png', full.names = TRUE) %>% 
+  list.files(path = file.path(color_image_path,"Permanent_Water_Color/"), pattern = '*.png', full.names = TRUE) %>% 
     image_read() %>% # reads each path file
     image_join() %>% # joins image
     image_animate(fps=1) %>% # animates, can opt for number of loops
     image_write("Permanent.gif") # write to current dir
 }
 
+setwd("/Data/")# Setting path
+
 # Here it will be check out if the .GIF was created otherwise the code will run
-if(!file.exists(paste0(reswd,"Total.gif"))) {
+if(!file.exists(paste0(reswd,"/Total.gif"))) {
   # Set the folder where the *.png files will be created
-  setwd("c:/Data/Total_Water_Color/")
+  setwd(file.path(getwd(),"Total_Water_Color/"))
   # For-loop to create *.png files for Total Water
   for (i in 1:dim(tmp_Stack3)[3]){
     # Extract Country
@@ -513,9 +518,9 @@ if(!file.exists(paste0(reswd,"Total.gif"))) {
     dev.off()
   }
   # Set the folder where the *.GIF file will be created
-  setwd("c:/Data/GIF/")
+  setwd("/Data/GIF/")
   # Creation of the * .GIF file listing different * .png files in order of name (sorted by years)
-  list.files(path="c:/Data/Total_Water_Color/", pattern = '*.png', full.names = TRUE) %>% 
+  list.files(path = file.path(color_image_path,"Total_Water_Color/"), pattern = '*.png', full.names = TRUE) %>% 
     image_read() %>% # reads each path file
     image_join() %>% # joins image
     image_animate(fps=1) %>% # animates, can opt for number of loops
