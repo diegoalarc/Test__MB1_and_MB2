@@ -7,7 +7,7 @@
 
 Corresponds to the project for the [MB1 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/).
 
-This second script was intended to work with mosaics at the country level and cut entire regions with memory efficiency. Within this, you can find a higher rating with reference to the previous code for images and mosaics, and a direct way to save plotted graphics for each type of water body. The products of this script. Using the [OTB toolbox](https://www.orfeo-toolbox.org/) by [QGIS](https://www.qgis.org/en/site/) it was used for change detection making an iteration of the different tiff image created by the R Script. It was possible to made a unique Tiff where was differenced by its Digital Number for each unique year which represent the state of the art of Permanet and Seasonal water to generate a final map that shows the decrease in the body of water of the Aculeo lagoon between 2010 and 2018. It is necessary to add that by means of the histogram visualization of the digital pixel values of the new TIFF created with change detection, the ranges of each year were obtained and classified with different colors for an easier visual representation for the users.
+This script was intended to work with mosaics at the country level and cut entire regions with memory efficiency. Within this, you can find a higher rating with reference to the previous code for images and mosaics, and a direct way to save plotted graphics for each type of water body. The products of this script. Using the [OTB toolbox](https://www.orfeo-toolbox.org/) by [QGIS](https://www.qgis.org/en/site/) it was used for change detection making an iteration of the different tiff image created by the R Script. It was possible to made a unique Tiff where was differenced by its Digital Number for each unique year which represent the state of the art of Permanet and Seasonal water to generate a final map that shows the decrease in the body of water of the Aculeo lagoon between 2010 and 2018. It is necessary to add that by means of the histogram visualization of the digital pixel values of the new TIFF created with change detection, the ranges of each year were obtained and classified with different colors for an easier visual representation for the users.
 
 In parallel [LandSat 8](https://www.usgs.gov/land-resources/nli/landsat/landsat-8) images were used with which the Normalized Difference Water Index was calculated using the McFeeters Method, 1996. This is based on the substitution of the SWIR band by the visible green band, highlighting the water masses. In this case, the relation of analysis of multispectral bands will be:
 
@@ -21,7 +21,7 @@ With the above, a Time Series analysis was generated between 2015 and 2019 with 
 
 Corresponds to the project for the [MB2 course Introduction to Programming and Geostatistics](http://eagle-science.org/project/programming-and-geostatistical-analysis/).
 
-Through this first script an easy and fast way is proposed to observe the decrease over time of the water level of the Acualeo Lagoon in Chile. It is also possible to modify this code to observe other gaps in the world, using the data provided by [Global SDG database](https://www.sdg661.app/data-products/data-downloads) and a a preset georeferenced area (which can be changed by a Shapefile).
+Through this script an easy and fast way is proposed to observe the decrease over time of the water level of the Acualeo Lagoon in Chile. It is also possible to modify this code to observe other gaps in the world, using the data provided by [Global SDG database](https://www.sdg661.app/data-products/data-downloads) and a a preset georeferenced area (which can be changed by a Shapefile).
 
 [Link to download the water bodies of Chile by Global SDG database](https://storage.googleapis.com/global-surface-water-stats/zips/Chile_all.zip)
 
@@ -34,7 +34,7 @@ One of the most important characteristics of this script is that it is generic, 
 
 ### [MB1](http://eagle-science.org/project/digital-image-analysis-and-gis/) course:
 
-The second __script__ that is called [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R) and [LandSat8_Script.R](https://github.com/diegoalarc/Test__MB1_and_MB2/blob/master/LandSat8_Script.R). Both were generated to obtain the images and charts that were used for the [QGIS](https://www.qgis.org/en/site/) project which corresponds to the [MB1 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/) of the [Master EAGLE](http://eagle-science.org/) to create an explicative and visually attractive map.
+The __script__ that is called [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R) and [LandSat8_Script.R](https://github.com/diegoalarc/Test__MB1_and_MB2/blob/master/LandSat8_Script.R). Both were generated to obtain the images and charts that were used for the [QGIS](https://www.qgis.org/en/site/) project which corresponds to the [MB1 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/) of the [Master EAGLE](http://eagle-science.org/) to create an explicative and visually attractive map.
 
 Within the codes we can find:
 
@@ -46,7 +46,7 @@ Within the codes we can find:
 
 ### [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course:
 
-The main __script__ that concerns us in this project is called [Project_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_Script.R) which corresponds to the [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course of the [Master EAGLE](http://eagle-science.org/).
+The __script__ that concerns us in this project is called [Project_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_Script.R) which corresponds to the [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course of the [Master EAGLE](http://eagle-science.org/).
 
 Within this code we can find:
 
