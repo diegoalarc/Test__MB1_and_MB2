@@ -36,7 +36,7 @@ One of the most important characteristics of this script is that it is generic, 
 ***
 ## *Script Overview for MB1 and MB2*
 
-### [MB1](http://eagle-science.org/project/digital-image-analysis-and-gis/) course:
+## [MB1](http://eagle-science.org/project/digital-image-analysis-and-gis/) course:
 
 The __script__ that is called [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R) and [LandSat8_Script.R](https://github.com/diegoalarc/Test__MB1_and_MB2/blob/master/LandSat8_Script.R). Both were generated to obtain the images and charts that were used for the [QGIS](https://www.qgis.org/en/site/) project which corresponds to the [MB1 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/) of the [Master EAGLE](http://eagle-science.org/) to create an explicative and visually attractive map.
 
@@ -48,7 +48,7 @@ Within the codes we can find:
 
 ---
 
-### [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course:
+## [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course:
 
 The __script__ that concerns us in this project is called [Project_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_Script.R) which corresponds to the [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course of the [Master EAGLE](http://eagle-science.org/).
 
@@ -65,7 +65,7 @@ Within this code we can find:
 ***
 ## *Script and QGIS products*
 
-### [MB1](http://eagle-science.org/project/digital-image-analysis-and-gis/) course.
+## [MB1](http://eagle-science.org/project/digital-image-analysis-and-gis/) course.
 
 Created using [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R), [OTB toolbox](https://www.orfeo-toolbox.org/) inside of [QGIS](https://www.qgis.org/en/site/) and [LandSat 8](https://www.usgs.gov/land-resources/nli/landsat/landsat-8) images was possible generated the information need it to elaborate the following map using [QGIS](https://www.qgis.org/en/site/):
 
@@ -91,7 +91,7 @@ Created using [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB
 
 ---
 
-### [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course.
+## [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course.
 
 Created using [Project_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_Script.R) it is possible to obtain Graphs, Images, GIF and Tables:
 
