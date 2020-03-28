@@ -1,4 +1,3 @@
-
 library(tidyverse)
 library(dplyr)
 library(raster)
@@ -9,7 +8,6 @@ library(rgeos)
 library(RStoolbox)
 library(lattice)
 library(ggplot2)
-
 
 setwd("B:/")
 dir.create("Image_Landsat")
@@ -66,7 +64,6 @@ for (i in sequence){
   brick_list <- append(brick_list, tmp4)
 }
 
-
 ndwi <- list()
 n_list <- list()
 esp <- list()
@@ -104,7 +101,6 @@ for (i in 1:length(n_list)){
   
   rm(nm,yr,mt,dy)
 }
-
 
 ######################
 # Load all the images in one list.
@@ -146,10 +142,8 @@ my_mat[,4] <- my_date
 # Create the data frame with the data for "Seasonal"
 my_df <- data.frame(my_mat,stringsAsFactors=FALSE)
 
-
 # Name the headers of the created dataframes
 names(my_df) <- c("Year", "Month", "Day", "Date", "Type", "Area")
-
 
 # For-loop calculating mean of each raster and save it in a dataframe
 for (i in 1:nlayers(tmp_Stack1)){
@@ -166,13 +160,11 @@ for (i in 1:nlayers(tmp_Stack1)){
   rm(NDWI_values,i)
 }
 
-
 setwd("B:/Image_Landsat/NDWI/")
 # SAving the data as Data Frame
 write.csv(my_df, file= "B:/Image_Landsat/NDWI/NDWI.csv", row.names = F)
 
 rm(my_df)
-
 
 # Reading the data saved the data as Data Frame
 my_df = read.csv("B:/Image_Landsat/NDWI/NDWI.csv", header=TRUE, sep=",")
