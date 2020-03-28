@@ -3,8 +3,7 @@
 # *Codes for the approval of the MB1 and MB2 [Master EAGLE](http://eagle-science.org/) courses at the Julius-Maximilians-Universität Würzburg, Germany.*
 
 ***
-
-## *First Script*
+### [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course: *First Script*
 
 Corresponds to the project for the [MB2 course Introduction to Programming and Geostatistics](http://eagle-science.org/project/programming-and-geostatistical-analysis/).
 
@@ -16,7 +15,7 @@ One of the most important characteristics of this script is that it is generic, 
 
 [Link to download the cadastre of lakes in Chile](http://www.dga.cl/estudiospublicaciones/mapoteca/Inventarios/catastro_de_lagos.zip)
 
-## *Second Script and Map* 
+## [MB1](http://eagle-science.org/project/digital-image-analysis-and-gis/) course: *Second Script and Map* 
 
 Corresponds to the project for the [MB1 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/).
 
