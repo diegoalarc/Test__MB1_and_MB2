@@ -19,8 +19,6 @@ With the above, a Time Series analysis was generated between 2015 and 2019 with 
 
 ---
 
----
-
 ## [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course: *Project_Script.R*
 
 Corresponds to the project for the [MB2 course Introduction to Programming and Geostatistics](http://eagle-science.org/project/programming-and-geostatistical-analysis/).
@@ -47,8 +45,6 @@ Within the codes we can find:
  - Command to call [GDAL](https://gdal.org/) in [QGIS](https://www.qgis.org/en/site/) from [RStudio](https://rstudio.com/)
  - Crop the area from a shapefile without using the temporary file from RStudio through [GDAL](https://gdal.org/).
  - Plot generation and saved directly in a route pre-established by the code.
-
----
 
 ---
 
@@ -90,8 +86,6 @@ Within this code we can find:
 !["Aculeo Lagoon TimeSeries drought map from 2010 - 2018"](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Map_QGIS_Generated/QGIS_EAGLE_Msc_compressed.png?raw=true "Aculeo Lagoon TimeSeries drought map from 2010 - 2018")
 
 ## [Download the map by clicking here](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Map_QGIS_Generated/QGIS_EAGLE_Msc.pdf)
-
----
 
 ---
 
