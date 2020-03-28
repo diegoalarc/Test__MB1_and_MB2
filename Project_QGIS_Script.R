@@ -95,7 +95,6 @@ dir.create("Crop_data")# Create folder
 dir.create("Mask_data")# Create folder
 dir.create("Mosaic")# Create folder
 
-
 #######################################################
 
 tempdl <- paste0(hard_drive,"Data/Chile_all.zip")
