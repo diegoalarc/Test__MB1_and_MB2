@@ -65,7 +65,7 @@ Within this code we can find:
 ***
 ## *Script and QGIS products*
 
-## [MB1](http://eagle-science.org/project/digital-image-analysis-and-gis/) course.
+## [MB1](http://eagle-science.org/project/digital-image-analysis-and-gis/) course:
 
 Created using [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R), [OTB toolbox](https://www.orfeo-toolbox.org/) inside of [QGIS](https://www.qgis.org/en/site/) and [LandSat 8](https://www.usgs.gov/land-resources/nli/landsat/landsat-8) images was possible generated the information need it to elaborate the following map using [QGIS](https://www.qgis.org/en/site/):
 
@@ -91,7 +91,7 @@ Created using [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB
 
 ---
 
-## [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course.
+## [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course:
 
 Created using [Project_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_Script.R) it is possible to obtain Graphs, Images, GIF and Tables:
 
