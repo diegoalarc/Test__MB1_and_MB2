@@ -156,7 +156,6 @@ Lagoon <- "Aculeo Lagoon"
 # each line of code in this section of the script
 
 # Create an object with the coordenate
-
 # Here it is create the replace of the shape file with a SpatialPolygons that has extent area as well
 x_coord <- c(-70.94622,  -70.87834, -70.87834, -70.94622, -70.94622)
 y_coord <- c(-33.87002, -33.87002, -33.82135, -33.82135, -33.87002)
