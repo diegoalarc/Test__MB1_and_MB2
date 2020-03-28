@@ -3,7 +3,7 @@
 # *Codes for the approval of the MB1 and MB2 [Master EAGLE](http://eagle-science.org/) courses at the Julius-Maximilians-Universität Würzburg, Germany.*
 
 ***
-### [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course: *First Script*
+## [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course: *First Script*
 
 Corresponds to the project for the [MB2 course Introduction to Programming and Geostatistics](http://eagle-science.org/project/programming-and-geostatistical-analysis/).
 
