@@ -3,19 +3,7 @@
 # *Codes for the approval of the MB1 and MB2 [Master EAGLE](http://eagle-science.org/) courses at the Julius-Maximilians-Universität Würzburg, Germany.*
 
 ***
-## [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course: *First Script*
-
-Corresponds to the project for the [MB2 course Introduction to Programming and Geostatistics](http://eagle-science.org/project/programming-and-geostatistical-analysis/).
-
-Through this first script an easy and fast way is proposed to observe the decrease over time of the water level of the Acualeo Lagoon in Chile. It is also possible to modify this code to observe other gaps in the world, using the data provided by [Global SDG database](https://www.sdg661.app/data-products/data-downloads) and a a preset georeferenced area (which can be changed by a Shapefile).
-
-[Link to download the water bodies of Chile by Global SDG database](https://storage.googleapis.com/global-surface-water-stats/zips/Chile_all.zip)
-
-One of the most important characteristics of this script is that it is generic, therefore it can be used for any type of body of water in the world while its extent is known. For this, within the code between lines 121 and 153 is the option to download a shapefile that makes up the cadastre of lakes in Chile obtained from the official page of the [General direction of waters](https://dga.mop.gob.cl/Paginas/default.aspx) in Chile. Which can be used to facilitate the understanding of how to use a database such as a shapefile in this script.
-
-[Link to download the cadastre of lakes in Chile](http://www.dga.cl/estudiospublicaciones/mapoteca/Inventarios/catastro_de_lagos.zip)
-
-## [MB1](http://eagle-science.org/project/digital-image-analysis-and-gis/) course: *Second Script and Map* 
+## [MB1](http://eagle-science.org/project/digital-image-analysis-and-gis/) course: *Project_QGIS_Script.R, LandSat8_Script.R, and Map*
 
 Corresponds to the project for the [MB1 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/).
 
@@ -27,8 +15,34 @@ In parallel [LandSat 8](https://www.usgs.gov/land-resources/nli/landsat/landsat-
 
 With the above, a Time Series analysis was generated between 2015 and 2019 with a temporal resolution of approximately 15 day to be able to observe the behavior of the body of water using data from another satellite and at the same time obtain the vacuum between 2018 and 2019. It could be observed that after the lagoon dried up it was not observed again that it reappeared.
 
+---
+
+## [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course: *Project_Script.R*
+
+Corresponds to the project for the [MB2 course Introduction to Programming and Geostatistics](http://eagle-science.org/project/programming-and-geostatistical-analysis/).
+
+Through this first script an easy and fast way is proposed to observe the decrease over time of the water level of the Acualeo Lagoon in Chile. It is also possible to modify this code to observe other gaps in the world, using the data provided by [Global SDG database](https://www.sdg661.app/data-products/data-downloads) and a a preset georeferenced area (which can be changed by a Shapefile).
+
+[Link to download the water bodies of Chile by Global SDG database](https://storage.googleapis.com/global-surface-water-stats/zips/Chile_all.zip)
+
+One of the most important characteristics of this script is that it is generic, therefore it can be used for any type of body of water in the world while its extent is known. For this, within the code between lines 121 and 153 is the option to download a shapefile that makes up the cadastre of lakes in Chile obtained from the official page of the [General direction of waters](https://dga.mop.gob.cl/Paginas/default.aspx) in Chile. Which can be used to facilitate the understanding of how to use a database such as a shapefile in this script.
+
+[Link to download the cadastre of lakes in Chile](http://www.dga.cl/estudiospublicaciones/mapoteca/Inventarios/catastro_de_lagos.zip)
+
 ***
-## *Scripts Overviews*
+## *Script Overview for MB1 and MB2*
+
+### [MB1](http://eagle-science.org/project/digital-image-analysis-and-gis/) course:
+
+The second __script__ that is called [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R) and [LandSat8_Script.R](https://github.com/diegoalarc/Test__MB1_and_MB2/blob/master/LandSat8_Script.R). Both were generated to obtain the images and charts that were used for the [QGIS](https://www.qgis.org/en/site/) project which corresponds to the [MB1 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/) of the [Master EAGLE](http://eagle-science.org/) to create an explicative and visually attractive map.
+
+Within the codes we can find:
+
+ - Command to call [GDAL](https://gdal.org/) in [QGIS](https://www.qgis.org/en/site/) from [RStudio](https://rstudio.com/)
+ - Crop the area from a shapefile without using the temporary file from RStudio through [GDAL](https://gdal.org/).
+ - Plot generation and saved directly in a route pre-established by the code.
+
+---
 
 ### [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course:
 
@@ -42,34 +56,8 @@ Within this code we can find:
  - Select of Tiff images in an automatic form and copy to another folder.
  - Use [Shiny App](https://shiny.rstudio.com/).
 
-### [MB1](http://eagle-science.org/project/digital-image-analysis-and-gis/) course:
-
-The second __script__ that is called [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R) and [LandSat8_Script.R](https://github.com/diegoalarc/Test__MB1_and_MB2/blob/master/LandSat8_Script.R). Both were generated to obtain the images and charts that were used for the [QGIS](https://www.qgis.org/en/site/) project which corresponds to the [MB1 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/) of the [Master EAGLE](http://eagle-science.org/) to create an explicative and visually attractive map.
-
-Within the codes we can find:
-
- - Command to call [GDAL](https://gdal.org/) in [QGIS](https://www.qgis.org/en/site/) from [RStudio](https://rstudio.com/)
- - Crop the area from a shapefile without using the temporary file from RStudio through [GDAL](https://gdal.org/).
- - Plot generation and saved directly in a route pre-established by the code.
-
 ***
 ## *Script and QGIS products*
-
-### [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course: Created using [Project_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_Script.R) it is possible to obtain Graphs, Images, GIF and Tables.
-
-!["TimeSeries of Aculeo Lagoon Chile between 2000 - 2018 "](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Total_Water/TimeSeries%20of%20Aculeo%20Lagoon%20%20all%20%20%20Chile%20.png?raw=true "TimeSeries of Aculeo Lagoon Chile between 2000 - 2018")
-
- - TimeSeries of Permanent Water body for Aculeo Lagoon between 2000 - 2018.
-
-![](https://github.com/diegoalarc/Code_Test_MB2/blob/master/GIF/Permanent.gif)
-
-#### Here you can see some examples of the images that were generated by applying the [Project_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_Script.R) for the project of [QGIS](https://www.qgis.org/en/site/):
- 
- - [i.e. Images for the total water body of the Aculeo Lagoon, which represent the sum of Seasonal and Permanent water bodies](https://github.com/diegoalarc/Code_Test_MB2/tree/master/Total_Water).
-
- - [i.e. Images NDWI of the Aculeo Lagoon from 2015 to 2019](https://github.com/diegoalarc/Test__MB1_and_MB2/tree/master/NDWI_LandSat8_2015_2019).
-
----
 
 ### [MB1](http://eagle-science.org/project/digital-image-analysis-and-gis/) course: Created using [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R), [OTB toolbox](https://www.orfeo-toolbox.org/) inside of [QGIS](https://www.qgis.org/en/site/) and [LandSat 8](https://www.usgs.gov/land-resources/nli/landsat/landsat-8) images was possible generated the information need it to elaborate the following map using [QGIS](https://www.qgis.org/en/site/):
 
@@ -92,6 +80,22 @@ Within the codes we can find:
 !["Aculeo Lagoon TimeSeries drought map from 2010 - 2018"](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Map_QGIS_Generated/QGIS_EAGLE_Msc_compressed.png?raw=true "Aculeo Lagoon TimeSeries drought map from 2010 - 2018")
 
 ## [Download the map by clicking here](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Map_QGIS_Generated/QGIS_EAGLE_Msc.pdf)
+
+---
+
+### [MB2](http://eagle-science.org/project/programming-and-geostatistical-analysis/) course: Created using [Project_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_Script.R) it is possible to obtain Graphs, Images, GIF and Tables.
+
+!["TimeSeries of Aculeo Lagoon Chile between 2000 - 2018 "](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Total_Water/TimeSeries%20of%20Aculeo%20Lagoon%20%20all%20%20%20Chile%20.png?raw=true "TimeSeries of Aculeo Lagoon Chile between 2000 - 2018")
+
+ - TimeSeries of Permanent Water body for Aculeo Lagoon between 2000 - 2018.
+
+![](https://github.com/diegoalarc/Code_Test_MB2/blob/master/GIF/Permanent.gif)
+
+#### Here you can see some examples of the images that were generated by applying the [Project_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_Script.R) for the project of [QGIS](https://www.qgis.org/en/site/):
+ 
+ - [i.e. Images for the total water body of the Aculeo Lagoon, which represent the sum of Seasonal and Permanent water bodies](https://github.com/diegoalarc/Code_Test_MB2/tree/master/Total_Water).
+
+ - [i.e. Images NDWI of the Aculeo Lagoon from 2015 to 2019](https://github.com/diegoalarc/Test__MB1_and_MB2/tree/master/NDWI_LandSat8_2015_2019).
 
 ***
 ## *Contact references:*
