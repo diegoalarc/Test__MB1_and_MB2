@@ -25,11 +25,11 @@ Corresponds to the project for the [MB2 course Introduction to Programming and G
 
 Through this script an easy and fast way is proposed to observe the decrease over time of the water level of the Acualeo Lagoon in Chile. It is also possible to modify this code to observe other gaps in the world, using the data provided by [Global SDG database](https://www.sdg661.app/data-products/data-downloads) and a a preset georeferenced area (which can be changed by a Shapefile).
 
-[Link to download the water bodies of Chile by Global SDG database](https://storage.googleapis.com/global-surface-water-stats/zips/Chile_all.zip)
+[Link to download the water bodies of Chile by Global SDG database.](https://storage.googleapis.com/global-surface-water-stats/zips/Chile_all.zip)
 
 One of the most important characteristics of this script is that it is generic, therefore it can be used for any type of body of water in the world while its extent is known. For this, within the code between lines 121 and 153 is the option to download a shapefile that makes up the cadastre of lakes in Chile obtained from the official page of the [General direction of waters](https://dga.mop.gob.cl/Paginas/default.aspx) in Chile. Which can be used to facilitate the understanding of how to use a database such as a shapefile in this script.
 
-[Link to download the cadastre of lakes in Chile](http://www.dga.cl/estudiospublicaciones/mapoteca/Inventarios/catastro_de_lagos.zip)
+[Link to download the cadastre of lakes in Chile.](http://www.dga.cl/estudiospublicaciones/mapoteca/Inventarios/catastro_de_lagos.zip)
 
 ***
 
