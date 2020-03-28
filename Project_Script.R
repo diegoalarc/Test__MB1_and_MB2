@@ -105,14 +105,7 @@ tempdl <- file.path(getwd(),"Chile_all.zip")
 # It is also possible just changing the /Chile_all.zip to another country download the data
 fileURL <- "https://storage.googleapis.com/global-surface-water-stats/zips/Chile_all.zip"
 
-# This is the name for the Lagoon for the study
-Lagoon <- "Aculeo Lagoon"
-
-# Activation of the cores in the device and focus these in the following process
-beginCluster()
-
-# Here is necessary to check if the data was downloaded and then unzip the content
-
+# Here is necessary to check if the data was downloaded and then unzip the content body water .Tiff in Chile
 if (!file.exists(tempdl)) {
   download.file(fileURL ,tempdl, mode="wb")
   unzip(tempdl, exdir = file.path(getwd(),"Data_Bruto"),overwrite = TRUE)
@@ -121,6 +114,46 @@ if (!file.exists(tempdl)) {
 }
 
 #######################################################
+# Don't forget to change the name if you change the study area
+# This is the name for the Lagoon for the study
+Lagoon <- "Aculeo Lagoon"
+
+#######################################################
+# Here is one of the most important step depending of the water body do you want to study
+# you should look at the shapefile after running the code in order to be secure
+# that the script is working for you and then you could select a new water body if you want to make a study
+# of a different area.
+
+# PLEASE ERASE THE SYMBOL # FROM THE CODE IF YOU WANT TO USE THIS PART OF THE SCRIPT
+
+#dir.create("Shapefile")# Create folder
+
+# This is the name from the column "NOMBRE" in the following shapefile we need to download for the study
+#shape_lagoon <- "LAGUNA DE ACULEO"
+
+# It is also possible just changing the /Masas_Lacustres.zip whish contain all the body water shape in Chile
+#fileURL_1 <- "http://www.dga.cl/estudiospublicaciones/mapoteca/Inventarios/catastro_de_lagos.zip"
+
+# Here is necessary to check if the data was downloaded and then unzip the content body water shape in Chile
+#if (!file.exists(tempdl)) {
+#  download.file(fileURL_1 ,tempdl, mode="wb")
+#  unzip(tempdl, exdir = file.path(getwd(),"Shapefile"),overwrite = TRUE)
+#} else {
+#  unzip(tempdl, exdir = file.path(getwd(),"Shapefile"),overwrite = TRUE)
+#}
+
+# read shape (Lake`s in Chile)
+#shape <- readOGR(dsn=file.path(getwd(),"Shapefile"), layer="catastro_de_lagos")
+
+# Subset from the shape (Lake`s in Chile)
+#shape_water_body <- subset(shape, NOMBRE == shape_lagoon)
+# Reprojection of the shape
+#shape_water_body_wgs84 <- spTransform(shape_water_body, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
+
+#######################################################
+
+# If you are going to use the Shapefile you must place the symbol # in front of 
+# each line of code in this section of the script
 
 # Create an object with the coordenate
 
@@ -134,17 +167,13 @@ sps = SpatialPolygons(list(ps))
 proj4string(sps) = CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
 data = data.frame(f=99.9)
 spdf = SpatialPolygonsDataFrame(sps,data)
-aculeo_extent <- spdf
+shape_water_body_wgs84 <- spdf
+
+#######################################################
 
 # Identify the folders
 setwd("/Data/")# Setting path
 toFolder <- file.path(getwd(),"Zona_Study/")
-
-#######################################################
-
-# In case you want to use a shape file, the following code would be useful:
-# Load shapefile with boundary, change path to correct
-#aculeo_extent <- shapefile('C:/Data/Shape/Antofagasta Region.shp')
 
 #######################################################
 
@@ -157,14 +186,17 @@ fllst <- list.files(path=rasdir, pattern=c("^Chile_classes_(.*).tif$"), full.nam
 # New vector for storing file names of intersecting rasters
 newlst <- c()
 
+# Activation of the cores in the device and focus these in the following process
+beginCluster()
+
 # Loop through files
 for (fl in fllst){
   r <- raster(fl)
   # Transform shapefile to match crs of raster
-  aculeo_extent <- spTransform(aculeo_extent, crs(r))
+  shape_water_body_wgs84 <- spTransform(shape_water_body_wgs84, crs(r))
   # Check if raster intersects shapefile
   # Suppress warnings from function is optional
-  if (suppressWarnings(!(is.null(intersect(aculeo_extent, extent(r))))))
+  if (suppressWarnings(!(is.null(intersect(shape_water_body_wgs84, extent(r))))))
   {
     # If raster intersects, add file name to vector
     newlst <- c(newlst, fl)
@@ -195,7 +227,7 @@ crop_list <- list()
 
 # For-loop to crop the raster in order to obtain the study area
 for (i in 1:nlayers(water_aculeo_raster)){
-  crop_list[[i]] <- crop(water_aculeo_raster[[i]],aculeo_extent)
+  crop_list[[i]] <- crop(water_aculeo_raster[[i]],shape_water_body_wgs84)
 }
 
 #Create the vector with the name file
