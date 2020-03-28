@@ -43,7 +43,7 @@ Within this we can find code for:
 
 ### [MB1](http://eagle-science.org/project/digital-image-analysis-and-gis/) course:
 
-The second __script__ that is called [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R) and it was generated to obtain the images that were used for the [QGIS](https://www.qgis.org/en/site/) project which corresponds to the [MB1 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/) of the [Master EAGLE](http://eagle-science.org/).
+The second __script__ that is called [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Project_QGIS_Script.R) and [LandSat8_Script.R](https://github.com/diegoalarc/Test__MB1_and_MB2/blob/master/LandSat8_Script.R). Both were generated to obtain the images that were used for the [QGIS](https://www.qgis.org/en/site/) project which corresponds to the [MB1 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/) of the [Master EAGLE](http://eagle-science.org/).
 
  - Command to call [GDAL](https://gdal.org/) in [QGIS](https://www.qgis.org/en/site/) from [RStudio](https://rstudio.com/)
  - Crop the area from a shapefile without using the temporary file from RStudio through [GDAL](https://gdal.org/).
