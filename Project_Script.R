@@ -478,6 +478,7 @@ if(!file.exists(paste0(reswd,"/Seasonal.gif"))) {
     
     dev.off()
   }
+  setwd("/Data/")# Setting path
   # Set the folder where the *.GIF file will be created
   setwd("/Data/GIF/")
   # Creation of the * .GIF file listing different * .png files in order of name (sorted by years)
@@ -489,7 +490,6 @@ if(!file.exists(paste0(reswd,"/Seasonal.gif"))) {
 }
 
 setwd("/Data/")# Setting path
-
 # Here it will be check out if the .GIF was created otherwise the code will run
 if(!file.exists(paste0(reswd,"/Permanent.gif"))) {
   # Set the folder where the *.png files will be created
@@ -513,6 +513,7 @@ if(!file.exists(paste0(reswd,"/Permanent.gif"))) {
     
     dev.off()
   }
+  setwd("/Data/")# Setting path
   # Set the folder where the *.GIF file will be created
   setwd("/Data/GIF/")
   # Creation of the * .GIF file listing different * .png files in order of name (sorted by years)
@@ -524,7 +525,6 @@ if(!file.exists(paste0(reswd,"/Permanent.gif"))) {
 }
 
 setwd("/Data/")# Setting path
-
 # Here it will be check out if the .GIF was created otherwise the code will run
 if(!file.exists(paste0(reswd,"/Total.gif"))) {
   # Set the folder where the *.png files will be created
@@ -548,6 +548,7 @@ if(!file.exists(paste0(reswd,"/Total.gif"))) {
     
     dev.off()
   }
+  setwd("/Data/")# Setting path
   # Set the folder where the *.GIF file will be created
   setwd("/Data/GIF/")
   # Creation of the * .GIF file listing different * .png files in order of name (sorted by years)
@@ -754,7 +755,7 @@ server <- function(input, output, session) {
     # Created the file name from the information of the radio Buttons in order to 
     # display the *.png image for an specific period of time and type of water body
     filename <- normalizePath(file.path(getwd(),
-                                        paste(input$typeInput2,"_Water_Color/",input$typeInput2," Water for Aculeo Lagoon ",input$yearsInput2," Chile",".png", sep='')))
+                                        paste(input$typeInput2,"_Water_Color/",input$typeInput2," Water for Aculeo Lagoon ",input$yearsInput2," Chile.png", sep='')))
     
     # Return a list containing the filename and alt text
     list(src = filename,
