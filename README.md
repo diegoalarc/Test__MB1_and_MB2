@@ -5,7 +5,7 @@
 ***
 
 ***
-## [MB1](http://eagle-science.org/project/digital-image-analysis-and-gis/) course: *Project_QGIS_Script.R, LandSat8_Script.R, and Map*
+## [MB1](http://eagle-science.org/project/digital-image-analysis-and-gis/) course: *Project_QGIS_Script.R, LandSat8_Script.R, LandSat 8, OTB toolbox, QGIS, and Map*
 
 Corresponds to the project for the [MB1 course Digital Image Analysis and GIS](http://eagle-science.org/project/digital-image-analysis-and-gis/).
 
