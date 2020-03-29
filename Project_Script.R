@@ -741,11 +741,11 @@ server <- function(input, output, session) {
   output$preImage <- renderImage({
     # Created the file name from the information of the radio Buttons in order to 
     # display the *.GIF image to the whole period of time for a type of water body
-    filename <- normalizePath(file.path(getwd(),'GIF',
+    filename_gif <- normalizePath(file.path(getwd(),'GIF',
                                         paste(input$typeInput1, '.gif', sep='')))
     
     # Return a list containing the filename and alt text
-    list(src = filename,
+    list(src = filename_gif,
          alt = paste(input$typeInput1))
   }, deleteFile = FALSE)
   
@@ -754,8 +754,9 @@ server <- function(input, output, session) {
   output$Image <- renderImage({
     # Created the file name from the information of the radio Buttons in order to 
     # display the *.png image for an specific period of time and type of water body
-    filename <- normalizePath(file.path(getwd(),
-                                        paste(input$typeInput2,"_Water_Color/",input$typeInput2," Water for Aculeo Lagoon ",input$yearsInput2," Chile.png", sep='')))
+    filename <- normalizePath(file.path(getwd(),paste(input$typeInput2,"_Water_Color/",
+                                        input$typeInput2," Water for Aculeo Lagoon ",
+                                              input$yearsInput2," Chile.png", sep='')))
     
     # Return a list containing the filename and alt text
     list(src = filename,
