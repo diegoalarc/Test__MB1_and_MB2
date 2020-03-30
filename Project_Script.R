@@ -74,7 +74,6 @@ if(!require(devtools)){
 # It is necessary to set and create the folders 
 # the folders before hand to storage the data
 
-# dlg_dir() #######################################################
 # Here you can define the path where all the information will be stored
 Root <- choose.dir(caption = "Select folder you want to use for save the information it will be generated")
 
@@ -153,7 +152,6 @@ Lagoon <- "Aculeo Lagoon"
 #shape_water_body_wgs84 <- spTransform(shape_water_body, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
 
 #######################################################
-
 # If you are going to use the Shapefile you must place the symbol # in front of 
 # each line of code in this section of the script
 
@@ -171,13 +169,11 @@ spdf = SpatialPolygonsDataFrame(sps,data)
 shape_water_body_wgs84 <- spdf
 
 #######################################################
-
 # Identify the folders
 setwd("/Data/")# Setting path
 toFolder <- file.path(Origen,"Zona_Study/")
 
 #######################################################
-
 # Change path to folder containing rasters
 rasdir <- file.path(Origen,"Data_Bruto/")
 
@@ -222,7 +218,6 @@ Water_all_IMAGE <- list.files(Water_IMAGE_path,
 water_aculeo_raster <- stack(Water_all_IMAGE)
 
 #######################################################
-
 # Create a List of the crop list
 crop_list <- list()
 
@@ -244,7 +239,6 @@ for (i in 1:length(crop_list)){
 Water <- stack(crop_list)
 
 #######################################################
-
 # For-loop to create a brick of differents types of water
 for (i in 1:nlayers(Water)){
   
@@ -299,7 +293,6 @@ for (i in 1:nlayers(Water)){
 rm(Country,yr)
 
 #######################################################
-
 # Create the path where Seasonal *.tiff images we will use.
 IMAGE_path2 <- file.path(Origen,"Seasonal_Water")
 
@@ -334,7 +327,6 @@ all_IMAGE4 <- list.files(IMAGE_path4,
 tmp_Stack3 <- stack(all_IMAGE4)
 
 #######################################################
-
 # Define dataframe and fill it with the Year, Type and Area 
 # for the difference types of water
 #Create the vector with the name file
@@ -441,7 +433,6 @@ my_df4[,3] <- rbind.data.frame(b)
 names(my_df4) <- c("Year", "Type", "Area [K^2]")
 
 #######################################################
-
 # It is necessary to check if the packages are install in  RStudio
 if(!require(maps)){
   install.packages("maps")
@@ -697,7 +688,7 @@ server <- function(input, output, session) {
     
   })
   
-  #######################################################
+#######################################################
   
   plotInput = function() {
     # Plot the Results using a function and getting the this one ready for download this as a *.png
@@ -725,7 +716,7 @@ server <- function(input, output, session) {
                                        size=17, angle=0))
   }
   
-  #######################################################
+#######################################################
   
   output$download_plot = downloadHandler(
     # Function to download the plot made it by ggplot
@@ -738,7 +729,7 @@ server <- function(input, output, session) {
       ggsave(file, plot = plotInput(), device = device)
     })
   
-  #######################################################
+#######################################################
   
   output$preImage <- renderImage({
     # Created the file name from the information of the radio Buttons in order to 
@@ -751,7 +742,7 @@ server <- function(input, output, session) {
          alt = paste(input$typeInput1))
   }, deleteFile = FALSE)
   
-  #################################################
+#################################################
   
   output$Image <- renderImage({
     # Created the file name from the information of the radio Buttons in order to 
@@ -765,7 +756,7 @@ server <- function(input, output, session) {
          alt = paste(input$typeInput2))
   }, deleteFile = FALSE)
   
-  #######################################################
+#######################################################
   
   filtered_data <- reactive({
     # A reactive function to filter the Table to plot and download it
@@ -774,7 +765,7 @@ server <- function(input, output, session) {
              Type == input$typeInput3)
   })
   
-  #######################################################
+#######################################################
   
   # This is the function to render the table and order it
   output$table <- DT::renderDataTable({
@@ -786,7 +777,7 @@ server <- function(input, output, session) {
     ),rownames = FALSE) 
   })
   
-  #######################################################
+#######################################################
   
   # Function to download the Table filtered before
   output$download_data <- downloadHandler(
@@ -801,7 +792,6 @@ server <- function(input, output, session) {
 shinyApp(ui = ui, server = server)
 
 #######################################################
-
 # Here you can define the path where all the information will be stored
 Root2 <- choose.dir(caption = "Select folder Data to Delete or Cancel")
 
