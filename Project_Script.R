@@ -805,11 +805,16 @@ shinyApp(ui = ui, server = server)
 # Here you can define the path where all the information will be stored
 Root2 <- choose.dir(caption = "Select folder Data to Delete or Cancel")
 
-### Change Directory to Root Folder
+# Change Directory to Root Folder
 delete <- setwd(Root2)
 
+# Set Root directory
 setwd(Root)
 
 # Delete the directory "Data"
 unlink(delete, recursive = TRUE, force = TRUE)
 
+# Remove delete information
+rm(delete)
+
+#######################################################
