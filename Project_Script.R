@@ -83,7 +83,7 @@ setwd(Root)
 #######################################################
 
 dir.create("Data")# Create folder
-setwd("/Data/")# Setting path
+setwd("./Data/")# Setting path
 
 Origen <- setwd("/Data/")
 
@@ -135,12 +135,14 @@ Lagoon <- "Aculeo Lagoon"
 # It is also possible just changing the /Masas_Lacustres.zip whish contain all the body water shape in Chile
 #fileURL_1 <- "http://www.dga.cl/estudiospublicaciones/mapoteca/Inventarios/catastro_de_lagos.zip"
 
+#tempdl_1 <- file.path(Origen,"catastro_de_lagos.zip")
+
 # Here is necessary to check if the data was downloaded and then unzip the content body water shape in Chile
-#if (!file.exists(tempdl)) {
-#  download.file(fileURL_1 ,tempdl, mode="wb")
-#  unzip(tempdl, exdir = file.path(Origen,"Shapefile"),overwrite = TRUE)
+#if (!file.exists(tempdl_1)) {
+#  download.file(fileURL_1 ,tempdl_1, mode="wb")
+#  unzip(tempdl_1, exdir1 = file.path(Origen,"Shapefile"),overwrite = TRUE)
 #} else {
-#  unzip(tempdl, exdir = file.path(Origen,"Shapefile"),overwrite = TRUE)
+#  unzip(tempdl_1, exdir1 = file.path(Origen,"Shapefile"),overwrite = TRUE)
 #}
 
 # read shape (Lake`s in Chile)
@@ -170,7 +172,6 @@ shape_water_body_wgs84 <- spdf
 
 #######################################################
 # Identify the folders
-setwd("/Data/")# Setting path
 toFolder <- file.path(Origen,"Zona_Study/")
 
 #######################################################
@@ -443,7 +444,6 @@ if(!require(GISTools)){
   library(GISTools)
 }
 
-setwd("/Data/")# Setting path
 # Save a path where the *.GIF file will be save
 color_image_path <- file.path(Origen)
 # Save a path where the *.PNG file will be save
@@ -471,9 +471,8 @@ if(!file.exists(paste0(reswd,"/Seasonal.gif"))) {
     
     dev.off()
   }
-  setwd("/Data/")# Setting path
   # Set the folder where the *.GIF file will be created
-  setwd("/Data/GIF/")
+  setwd(reswd)
   # Creation of the * .GIF file listing different * .png files in order of name (sorted by years)
   list.files(path = file.path(color_image_path,"Seasonal_Water_Color/"), pattern = '*.png', full.names = TRUE) %>% 
     image_read() %>% # reads each path file
@@ -482,7 +481,6 @@ if(!file.exists(paste0(reswd,"/Seasonal.gif"))) {
     image_write("Seasonal.gif") # write to current dir
 }
 
-setwd("/Data/")# Setting path
 # Here it will be check out if the .GIF was created otherwise the code will run
 if(!file.exists(paste0(reswd,"/Permanent.gif"))) {
   # Set the folder where the *.png files will be created
@@ -506,9 +504,8 @@ if(!file.exists(paste0(reswd,"/Permanent.gif"))) {
     
     dev.off()
   }
-  setwd("/Data/")# Setting path
   # Set the folder where the *.GIF file will be created
-  setwd("/Data/GIF/")
+  setwd(reswd)
   # Creation of the * .GIF file listing different * .png files in order of name (sorted by years)
   list.files(path = file.path(color_image_path,"Permanent_Water_Color/"), pattern = '*.png', full.names = TRUE) %>% 
     image_read() %>% # reads each path file
@@ -517,7 +514,6 @@ if(!file.exists(paste0(reswd,"/Permanent.gif"))) {
     image_write("Permanent.gif") # write to current dir
 }
 
-setwd("/Data/")# Setting path
 # Here it will be check out if the .GIF was created otherwise the code will run
 if(!file.exists(paste0(reswd,"/Total.gif"))) {
   # Set the folder where the *.png files will be created
@@ -541,9 +537,8 @@ if(!file.exists(paste0(reswd,"/Total.gif"))) {
     
     dev.off()
   }
-  setwd("/Data/")# Setting path
   # Set the folder where the *.GIF file will be created
-  setwd("/Data/GIF/")
+  setwd(reswd)
   # Creation of the * .GIF file listing different * .png files in order of name (sorted by years)
   list.files(path = file.path(color_image_path,"Total_Water_Color/"), pattern = '*.png', full.names = TRUE) %>% 
     image_read() %>% # reads each path file
