@@ -87,6 +87,10 @@ Created using [Project_QGIS_Script.R](https://github.com/diegoalarc/Code_Test_MB
  
 ![NDWI - Example of 2015-11-28](https://github.com/diegoalarc/Test__MB1_and_MB2/blob/master/NDWI_LandSat8_2015_2019/NDWI_2015-11-28.png?raw=true "NDWI - Example of 2015-11-28")
 
+![LandSat 8 - TimeSeries of Aculeo Lagoon 2015 - 2019, Chile](https://github.com/diegoalarc/Test__MB1_and_MB2/blob/master/NDWI_LandSat8_2015_2019/TimeSeries%20of%20Aculeo%20Lagoon%202015%20-%202019%2C%20Chile%20.png?raw=true "LandSat 8 - TimeSeries of Aculeo Lagoon 2015 - 2019, Chile")
+
+![Radar - TimeSeries of Aculeo Lagoon between April 2017 - 2018, Chile](https://github.com/diegoalarc/Test__MB1_and_MB2/blob/master/Radar_Gamma0_Generated/TimeSeries%20of%20Aculeo%20Lagoon%20between%20April%202017%20-%202018%2C%20Chile%20.png?raw=true "Radar - TimeSeries of Aculeo Lagoon between April 2017 - 2018, Chile")
+
  - Click in the following link to download the final file in the total resolution of the map ["Aculeo Lagoon TimeSeries drought map from 2010 - 2018"](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Map_QGIS_Generated/QGIS_EAGLE_Msc.pdf).
 
 !["Aculeo Lagoon TimeSeries drought map from 2010 - 2018"](https://github.com/diegoalarc/Code_Test_MB2/blob/master/Map_QGIS_Generated/QGIS_EAGLE_Msc_compressed.png?raw=true "Aculeo Lagoon TimeSeries drought map from 2010 - 2018")
