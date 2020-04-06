@@ -115,7 +115,7 @@ for (i in 1:nlayers(radar)){
 ####################################
 
 # Create the path where radar process *.tiff images we will use.
-IMAGE_radar_process <- paste0(hard_drive,"Radar_data/",Lagoon,"/Geotiff/Image_reclassify")
+IMAGE_radar_process <- paste0("B:/Radar_data/Aculeo_Lagoon/Geotiff/Image_reclassify")
 
 # Load all the images in one list.
 stack_radar_process <- list.files(IMAGE_radar_process,
@@ -123,7 +123,7 @@ stack_radar_process <- list.files(IMAGE_radar_process,
                          pattern = ".tif$")
 
 # Temporal Stack for all the radar process *.tiff images
-radar_process <- stack(radar_process)
+radar_process <- stack(stack_radar_process)
 
 # Make a filter from the clarely image created (no moisture present)
 radar_process[is.na(radar_process[[8]])] <- NA
@@ -218,11 +218,12 @@ p <- ggplot(my_df, aes(x=Date, y=as.numeric(Area), group = Type)) +
   theme(legend.justification = "top") + 
   stat_poly_eq(formula = my.formula,
                aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
-               label.x = "left", label.y = "bottom",
+               label.x = "right", label.y = "top",
                parse = TRUE) +
   labs(title = paste0("TimeSeries of Aculeo Lagoon between April 2017 - April 2018, Chile"),
        caption = "Sentinel 1") +
   xlab("Date") + ylab("Area"~Km^2) +
+  ylim(0, 7) +
   theme(axis.text.x = element_text(face="bold", color="#993333",
                                    size=5, angle=270),
         axis.text.y = element_text(face="bold", color="#993333",

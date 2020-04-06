@@ -210,6 +210,7 @@ p <- ggplot(my_df, aes(x=Date, y=as.numeric(Area), group = Type)) +
   labs(title = paste0("TimeSeries of Aculeo Lagoon 2015 - 2019, Chile"),
        caption = "LandSat 8") +
   xlab("Date") + ylab("Area"~Km^2) +
+  ylim(0, 6.5) +
   theme(axis.text.x = element_text(face="bold", color="#993333",
                                    size=5, angle=270),
         axis.text.y = element_text(face="bold", color="#993333",
