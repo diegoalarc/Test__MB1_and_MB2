@@ -112,6 +112,8 @@ all_IMAGE4 <- list.files(IMAGE_path4,
 # Third Temporal Stack for all the Seasonal *.tiff images
 tmp_Stack1 <- stack(all_IMAGE4)
 
+# Make a filter from the clarely image created (no moisture present)
+tmp_Stack1[is.na(tmp_Stack1[[17]])] <- NA
 
 # Define dataframe and fill it with the Year, Type and Area
 # for the difference types of water
