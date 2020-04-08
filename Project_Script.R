@@ -85,8 +85,6 @@ setwd(Root)
 dir.create("Data")# Create folder
 setwd("/Data/")# Setting path
 
-Origen <- getwd()
-
 dir.create("GIF")# Create folder
 dir.create("Permanent_Water")# Create folder
 dir.create("Seasonal_Water")# Create folder
@@ -99,7 +97,7 @@ dir.create("Total_Water_Color")# Create folder
 
 #######################################################
 
-tempdl <- file.path(Origen,"Chile_all.zip")
+tempdl <- file.path("./Chile_all.zip")
 
 
 # The data necessary for this project will be automatically download
@@ -109,9 +107,9 @@ fileURL <- "https://storage.googleapis.com/global-surface-water-stats/zips/Chile
 # Here is necessary to check if the data was downloaded and then unzip the content body water .Tiff in Chile
 if (!file.exists(tempdl)) {
   download.file(fileURL ,tempdl, mode="wb")
-  unzip(tempdl, exdir = file.path(Origen,"Data_Bruto"),overwrite = TRUE)
+  unzip(tempdl, exdir = file.path("./Data_Bruto"),overwrite = TRUE)
 } else {
-  unzip(tempdl, exdir = file.path(Origen,"Data_Bruto"),overwrite = TRUE)
+  unzip(tempdl, exdir = file.path("./Data_Bruto"),overwrite = TRUE)
 }
 
 #######################################################
@@ -135,18 +133,18 @@ Lagoon <- "Aculeo Lagoon"
 # It is also possible just changing the /Masas_Lacustres.zip whish contain all the body water shape in Chile
 #fileURL_1 <- "http://www.dga.cl/estudiospublicaciones/mapoteca/Inventarios/catastro_de_lagos.zip"
 
-#tempdl_1 <- file.path(Origen,"catastro_de_lagos.zip")
+#tempdl_1 <- file.path("./catastro_de_lagos.zip")
 
 # Here is necessary to check if the data was downloaded and then unzip the content body water shape in Chile
 #if (!file.exists(tempdl_1)) {
 #  download.file(fileURL_1 ,tempdl_1, mode="wb")
-#  unzip(tempdl_1, exdir1 = file.path(Origen,"Shapefile"),overwrite = TRUE)
+#  unzip(tempdl_1, exdir1 = file.path("./Shapefile"),overwrite = TRUE)
 #} else {
-#  unzip(tempdl_1, exdir1 = file.path(Origen,"Shapefile"),overwrite = TRUE)
+#  unzip(tempdl_1, exdir1 = file.path("./Shapefile"),overwrite = TRUE)
 #}
 
 # read shape (Lake`s in Chile)
-#shape <- readOGR(dsn=file.path(Origen,"Shapefile"), layer="catastro_de_lagos")
+#shape <- readOGR(dsn=file.path("./Shapefile"), layer="catastro_de_lagos")
 
 # Subset from the shape (Lake`s in Chile)
 #shape_water_body <- subset(shape, NOMBRE == shape_lagoon)
@@ -172,11 +170,11 @@ shape_water_body_wgs84 <- spdf
 
 #######################################################
 # Identify the folders
-toFolder <- file.path(Origen,"Zona_Study")
+toFolder <- file.path("./Zona_Study")
 
 #######################################################
 # Change path to folder containing rasters
-rasdir <- file.path(Origen,"Data_Bruto")
+rasdir <- file.path("./Data_Bruto")
 
 # List all GeoTIFF files in folder, change extension in pattern if different format
 fllst <- list.files(path=rasdir, pattern=c("^Chile_classes_(.*).tif$"), full.names=T)
@@ -208,7 +206,7 @@ file.copy(file.path(newlst), toFolder, overwrite=TRUE)
 unlink("./Data_Bruto", recursive = TRUE, force = TRUE)
 
 # Create the path where are all the *.tiff images we will use.
-Water_IMAGE_path <- file.path(Origen,"Zona_Study")
+Water_IMAGE_path <- file.path("./Zona_Study")
 
 # Load all the images in one list.
 Water_all_IMAGE <- list.files(Water_IMAGE_path,
@@ -266,7 +264,7 @@ for (i in 1:nlayers(Water)){
   yr <- substr(names(Water[[i]]), start=15, stop=18)
   
   # Save the Raster with a specific name
-  s_list <- writeRaster(t_Seasonal, filename=file.path(Origen,"Seasonal_Water",paste0("Seasonal_Water_for ",Lagoon,"_",yr,"_",Country)), format='GTiff', overwrite=T)
+  s_list <- writeRaster(t_Seasonal, filename=file.path("./Seasonal_Water",paste0("Seasonal_Water_for ",Lagoon,"_",yr,"_",Country)), format='GTiff', overwrite=T)
   
   # Remove lists
   rm(t_Seasonal)
@@ -275,7 +273,7 @@ for (i in 1:nlayers(Water)){
   t_Permanent <- clusterR(Water[[i]], reclassify, args = list(rcl = c(0, 2, NA, 2, 3, 1)), progress = "text")
   
   # Save the Raster with a specific name
-  s_list <- writeRaster(t_Permanent, filename=file.path(Origen,"Permanent_Water",paste0("Permanent_Water_for_",Lagoon,"_",yr,"_",Country)), format='GTiff', overwrite=T)
+  s_list <- writeRaster(t_Permanent, filename=file.path("./Permanent_Water",paste0("Permanent_Water_for_",Lagoon,"_",yr,"_",Country)), format='GTiff', overwrite=T)
   
   # Remove lists
   rm(t_Permanent)
@@ -284,7 +282,7 @@ for (i in 1:nlayers(Water)){
   t_water <- clusterR(Water[[i]], reclassify, args = list(rcl = c(0, 1, NA, 1, 3, 1)), progress = "text")
   
   # Save the Raster with a specific name
-  s_list <- writeRaster(t_water, filename=file.path(Origen,"Total_Water",paste0("Total_Water_for_",Lagoon,"_",yr,"_",Country)), format='GTiff', overwrite=T)
+  s_list <- writeRaster(t_water, filename=file.path("./Total_Water",paste0("Total_Water_for_",Lagoon,"_",yr,"_",Country)), format='GTiff', overwrite=T)
   
   # Remove lists
   rm(t_water)
@@ -295,7 +293,7 @@ rm(Country,yr)
 
 #######################################################
 # Create the path where Seasonal *.tiff images we will use.
-IMAGE_path2 <- file.path(Origen,"Seasonal_Water")
+IMAGE_path2 <- file.path("./Seasonal_Water")
 
 # Load all the images in one list.
 all_IMAGE2 <- list.files(IMAGE_path2,
@@ -306,7 +304,7 @@ all_IMAGE2 <- list.files(IMAGE_path2,
 tmp_Stack1 <- stack(all_IMAGE2)
 
 # Create the path where Permanent *.tiff images we will use.
-IMAGE_path3 <- file.path(Origen,"Permanent_Water")
+IMAGE_path3 <- file.path("./Permanent_Water")
 
 # Load all the images in one list.
 all_IMAGE3 <- list.files(IMAGE_path3,
@@ -317,7 +315,7 @@ all_IMAGE3 <- list.files(IMAGE_path3,
 tmp_Stack2 <- stack(all_IMAGE3)
 
 # Load all the images in one list.
-IMAGE_path4 <- file.path(Origen,"Total_Water")
+IMAGE_path4 <- file.path("./Total_Water")
 
 # Load all the images in one list.
 all_IMAGE4 <- list.files(IMAGE_path4,
@@ -444,14 +442,10 @@ if(!require(GISTools)){
   library(GISTools)
 }
 
-# Save a path where the *.GIF file will be save
-color_image_path <- file.path(Origen)
-# Save a path where the *.PNG file will be save
-reswd <- file.path(Origen,"GIF")
 # Here it will be check out if the .GIF was created otherwise the code will run
-if(!file.exists(paste0(reswd,"/Seasonal.gif"))) {
+if(!file.exists("../GIF/Seasonal.gif")) {
   # Set the folder where the *.png files will be created
-  setwd(file.path(Origen,"Seasonal_Water_Color/"))
+  setwd("./Seasonal_Water_Color/")
   # For-loop to create *.png files for Seasonal Water
   for (i in 1:dim(tmp_Stack1)[3]){
     # Extract Country
@@ -472,19 +466,20 @@ if(!file.exists(paste0(reswd,"/Seasonal.gif"))) {
     dev.off()
   }
   # Set the folder where the *.GIF file will be created
-  setwd(reswd)
+  setwd("../GIF/")
   # Creation of the * .GIF file listing different * .png files in order of name (sorted by years)
-  list.files(path = file.path(color_image_path,"Seasonal_Water_Color/"), pattern = '*.png', full.names = TRUE) %>% 
+  list.files(path = "../Seasonal_Water_Color/", pattern = '*.png', full.names = TRUE) %>% 
     image_read() %>% # reads each path file
     image_join() %>% # joins image
     image_animate(fps=1) %>% # animates, can opt for number of loops
     image_write("Seasonal.gif") # write to current dir
 }
 
+
 # Here it will be check out if the .GIF was created otherwise the code will run
-if(!file.exists(paste0(reswd,"/Permanent.gif"))) {
+if(!file.exists("../GIF/Permanent.gif")) {
   # Set the folder where the *.png files will be created
-  setwd(file.path(Origen,"Permanent_Water_Color/"))
+  setwd("../Permanent_Water_Color/")
   # For-loop to create *.png files for Permanent Water
   for (i in 1:dim(tmp_Stack1)[3]){
     # Extract Country
@@ -505,19 +500,20 @@ if(!file.exists(paste0(reswd,"/Permanent.gif"))) {
     dev.off()
   }
   # Set the folder where the *.GIF file will be created
-  setwd(reswd)
+  setwd("../GIF/")
   # Creation of the * .GIF file listing different * .png files in order of name (sorted by years)
-  list.files(path = file.path(color_image_path,"Permanent_Water_Color/"), pattern = '*.png', full.names = TRUE) %>% 
+  list.files(path = "../Permanent_Water_Color/", pattern = '*.png', full.names = TRUE) %>% 
     image_read() %>% # reads each path file
     image_join() %>% # joins image
     image_animate(fps=1) %>% # animates, can opt for number of loops
     image_write("Permanent.gif") # write to current dir
 }
 
+
 # Here it will be check out if the .GIF was created otherwise the code will run
-if(!file.exists(paste0(reswd,"/Total.gif"))) {
+if(!file.exists("../GIF/Total.gif")) {
   # Set the folder where the *.png files will be created
-  setwd(file.path(Origen,"Total_Water_Color/"))
+  setwd("../Total_Water_Color/")
   # For-loop to create *.png files for Total Water
   for (i in 1:dim(tmp_Stack3)[3]){
     # Extract Country
@@ -538,9 +534,9 @@ if(!file.exists(paste0(reswd,"/Total.gif"))) {
     dev.off()
   }
   # Set the folder where the *.GIF file will be created
-  setwd(reswd)
+  setwd("../GIF/")
   # Creation of the * .GIF file listing different * .png files in order of name (sorted by years)
-  list.files(path = file.path(color_image_path,"Total_Water_Color/"), pattern = '*.png', full.names = TRUE) %>% 
+  list.files(path = "../Total_Water_Color/", pattern = '*.png', full.names = TRUE) %>% 
     image_read() %>% # reads each path file
     image_join() %>% # joins image
     image_animate(fps=1) %>% # animates, can opt for number of loops
@@ -550,7 +546,7 @@ if(!file.exists(paste0(reswd,"/Total.gif"))) {
 # Disabling the cores on the device when the process ends
 endCluster()
 
-setwd("/Data/")# Setting path
+setwd("./Data/")# Setting path
 
 #######################################################
 # Creation and display of a Shiny App in RStudio
@@ -665,15 +661,16 @@ server <- function(input, output, session) {
        ))
     # Plot the Results using the ggplot2 package
     my.formula <- y ~ x + I(x^2)
-    ggplot(filtered, aes(Year, y=as.numeric(Area), group = input$typeInput)) +
+    ggplot(filtered, aes(x= Year, y=as.numeric(Area), group = input$typeInput)) +
       geom_line(aes(colour = Type), position = "stack", size = .5) +
       geom_point(aes(colour = Type), position = "stack", size = 2) +
-      geom_smooth(method="lm", se=TRUE, formula= my.formula) +
+      stat_smooth(method = "lm", formula = my.formula, size = .5) +
       stat_poly_eq(formula = my.formula, 
                    aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
                    label.x = "left", label.y = "center",
-                   parse = TRUE, na.rm = TRUE) +
-      labs(title = paste("TimeSeries ",Lagoon), subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
+                   na.rm = FALSE, parse = TRUE) +
+      labs(title = paste("TimeSeries ",Lagoon), 
+           subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
            caption = "Source: EC JRC/Google") +
       xlab("Year") + ylab("Area"~Km^2) + 
       theme(axis.text.x = element_text(face="bold", color="#993333",
@@ -694,15 +691,16 @@ server <- function(input, output, session) {
        ))
     
     my.formula <- y ~ x + I(x^2)
-    ggplot(filtered, aes(Year, y=as.numeric(Area), group = input$typeInput)) +
+    ggplot(filtered, aes(x= Year, y=as.numeric(Area), group = input$typeInput)) +
       geom_line(aes(colour = Type), position = "stack", size = .5) +
       geom_point(aes(colour = Type), position = "stack", size = 2) +
-      geom_smooth(method="lm", se=TRUE, formula= my.formula) +
+      stat_smooth(method = "lm", formula = my.formula, size = .5) +
       stat_poly_eq(formula = my.formula, 
                    aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
                    label.x = "left", label.y = "center",
-                   parse = TRUE, na.rm = TRUE) +
-      labs(title = paste("TimeSeries ",Lagoon), subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
+                   na.rm = FALSE, parse = TRUE) +
+      labs(title = paste("TimeSeries ",Lagoon), 
+           subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
            caption = "Source: EC JRC/Google") +
       xlab("Year") + ylab("Area"~Km^2) + 
       theme(axis.text.x = element_text(face="bold", color="#993333",
@@ -729,7 +727,7 @@ server <- function(input, output, session) {
   output$preImage <- renderImage({
     # Created the file name from the information of the radio Buttons in order to 
     # display the *.GIF image to the whole period of time for a type of water body
-    filename_gif <- normalizePath(file.path(Origen,'GIF',
+    filename_gif <- normalizePath(file.path('./GIF',
                                         paste(input$typeInput1, '.gif', sep='')))
     
     # Return a list containing the filename and alt text
@@ -742,7 +740,7 @@ server <- function(input, output, session) {
   output$Image <- renderImage({
     # Created the file name from the information of the radio Buttons in order to 
     # display the *.png image for an specific period of time and type of water body
-    filename <- normalizePath(file.path(Origen,paste(input$typeInput2,"_Water_Color/",
+    filename <- normalizePath(file.path('.',paste(input$typeInput2,"_Water_Color/",
                                         input$typeInput2," Water for Aculeo Lagoon ",
                                               input$yearsInput2," Chile.png", sep='')))
     
