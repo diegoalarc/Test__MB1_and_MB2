@@ -83,9 +83,9 @@ setwd(Root)
 #######################################################
 
 dir.create("Data")# Create folder
-setwd("./Data/")# Setting path
+setwd("/Data/")# Setting path
 
-Origen <- setwd("/Data/")
+Origen <- getwd()
 
 dir.create("GIF")# Create folder
 dir.create("Permanent_Water")# Create folder
@@ -172,11 +172,11 @@ shape_water_body_wgs84 <- spdf
 
 #######################################################
 # Identify the folders
-toFolder <- file.path(Origen,"Zona_Study/")
+toFolder <- file.path(Origen,"Zona_Study")
 
 #######################################################
 # Change path to folder containing rasters
-rasdir <- file.path(Origen,"Data_Bruto/")
+rasdir <- file.path(Origen,"Data_Bruto")
 
 # List all GeoTIFF files in folder, change extension in pattern if different format
 fllst <- list.files(path=rasdir, pattern=c("^Chile_classes_(.*).tif$"), full.names=T)
@@ -208,7 +208,7 @@ file.copy(file.path(newlst), toFolder, overwrite=TRUE)
 unlink("./Data_Bruto", recursive = TRUE, force = TRUE)
 
 # Create the path where are all the *.tiff images we will use.
-Water_IMAGE_path <- file.path(Origen,"Zona_Study/")
+Water_IMAGE_path <- file.path(Origen,"Zona_Study")
 
 # Load all the images in one list.
 Water_all_IMAGE <- list.files(Water_IMAGE_path,
@@ -672,7 +672,7 @@ server <- function(input, output, session) {
       stat_poly_eq(formula = my.formula, 
                    aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
                    label.x = "left", label.y = "center",
-                   parse = TRUE) +
+                   parse = TRUE, na.rm = TRUE) +
       labs(title = paste("TimeSeries ",Lagoon), subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
            caption = "Source: EC JRC/Google") +
       xlab("Year") + ylab("Area"~Km^2) + 
@@ -701,7 +701,7 @@ server <- function(input, output, session) {
       stat_poly_eq(formula = my.formula, 
                    aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),
                    label.x = "left", label.y = "center",
-                   parse = TRUE) +
+                   parse = TRUE, na.rm = TRUE) +
       labs(title = paste("TimeSeries ",Lagoon), subtitle = glue("All data here is produced under the Copernicus Programme, free of charge, without restriction of use."),
            caption = "Source: EC JRC/Google") +
       xlab("Year") + ylab("Area"~Km^2) + 
