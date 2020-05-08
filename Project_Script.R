@@ -83,7 +83,7 @@ setwd(Root)
 #######################################################
 
 dir.create("Data")# Create folder
-setwd("/Data/")# Setting path
+setwd("./Data/")# Setting path
 dir.create("GIF")# Create folder
 dir.create("Permanent_Water")# Create folder
 dir.create("Seasonal_Water")# Create folder
@@ -545,7 +545,7 @@ if(!file.exists("../GIF/Total.gif")) {
 # Disabling the cores on the device when the process ends
 endCluster()
 
-setwd("/Data/")# Setting path
+setwd("..")# Setting path
 
 #######################################################
 # Creation and display of a Shiny App in RStudio
