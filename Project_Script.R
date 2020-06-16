@@ -70,12 +70,16 @@ if(!require(devtools)){
   install.packages("devtools")
   library(devtools)
 }
+if(!require(rChoiceDialogs)){
+  install.packages("rChoiceDialogs")
+  library(rChoiceDialogs)
+}
 #######################################################
 # It is necessary to set and create the folders 
 # the folders before hand to storage the data
 
 # Here you can define the path where all the information will be stored
-Root <- choose.dir(caption = "Select folder you want to use for save the information it will be generated")
+Root <- rchoose.dir(caption = "Select folder you want to use for save the information it will be generated")
 
 ### Change Directory to Root Folder
 setwd(Root)
@@ -442,7 +446,7 @@ if(!require(GISTools)){
 }
 
 # Here it will be check out if the .GIF was created otherwise the code will run
-if(!file.exists("../GIF/Seasonal.gif")) {
+if(!file.exists("./GIF/Seasonal.gif")) {
   # Set the folder where the *.png files will be created
   setwd("./Seasonal_Water_Color/")
   # For-loop to create *.png files for Seasonal Water
@@ -785,7 +789,7 @@ shinyApp(ui = ui, server = server)
 
 #######################################################
 # Here you can define the path where all the information will be stored
-Root2 <- choose.dir(caption = "Select folder Data to Delete or Cancel")
+Root2 <- rchoose.dir(caption = "Select folder Data to Delete or Cancel")
 
 # Change Directory to Root Folder
 delete <- setwd(Root2)
