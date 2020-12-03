@@ -469,9 +469,9 @@ if(!file.exists("./GIF/Seasonal.gif")) {
     dev.off()
   }
   # Set the folder where the *.GIF file will be created
-  setwd("../GIF/")
+  setwd("./GIF/")
   # Creation of the * .GIF file listing different * .png files in order of name (sorted by years)
-  list.files(path = "../Seasonal_Water_Color/", pattern = '*.png', full.names = TRUE) %>% 
+  list.files(path = "./Seasonal_Water_Color/", pattern = '*.png', full.names = TRUE) %>% 
     image_read() %>% # reads each path file
     image_join() %>% # joins image
     image_animate(fps=1) %>% # animates, can opt for number of loops
@@ -480,9 +480,9 @@ if(!file.exists("./GIF/Seasonal.gif")) {
 
 
 # Here it will be check out if the .GIF was created otherwise the code will run
-if(!file.exists("../GIF/Permanent.gif")) {
+if(!file.exists("./GIF/Permanent.gif")) {
   # Set the folder where the *.png files will be created
-  setwd("../Permanent_Water_Color/")
+  setwd("./Permanent_Water_Color/")
   # For-loop to create *.png files for Permanent Water
   for (i in 1:dim(tmp_Stack1)[3]){
     # Extract Country
@@ -503,9 +503,9 @@ if(!file.exists("../GIF/Permanent.gif")) {
     dev.off()
   }
   # Set the folder where the *.GIF file will be created
-  setwd("../GIF/")
+  setwd("./GIF/")
   # Creation of the * .GIF file listing different * .png files in order of name (sorted by years)
-  list.files(path = "../Permanent_Water_Color/", pattern = '*.png', full.names = TRUE) %>% 
+  list.files(path = "./Permanent_Water_Color/", pattern = '*.png', full.names = TRUE) %>% 
     image_read() %>% # reads each path file
     image_join() %>% # joins image
     image_animate(fps=1) %>% # animates, can opt for number of loops
@@ -514,9 +514,9 @@ if(!file.exists("../GIF/Permanent.gif")) {
 
 
 # Here it will be check out if the .GIF was created otherwise the code will run
-if(!file.exists("../GIF/Total.gif")) {
+if(!file.exists("./GIF/Total.gif")) {
   # Set the folder where the *.png files will be created
-  setwd("../Total_Water_Color/")
+  setwd("./Total_Water_Color/")
   # For-loop to create *.png files for Total Water
   for (i in 1:dim(tmp_Stack3)[3]){
     # Extract Country
@@ -537,9 +537,9 @@ if(!file.exists("../GIF/Total.gif")) {
     dev.off()
   }
   # Set the folder where the *.GIF file will be created
-  setwd("../GIF/")
+  setwd("./GIF/")
   # Creation of the * .GIF file listing different * .png files in order of name (sorted by years)
-  list.files(path = "../Total_Water_Color/", pattern = '*.png', full.names = TRUE) %>% 
+  list.files(path = "./Total_Water_Color/", pattern = '*.png', full.names = TRUE) %>% 
     image_read() %>% # reads each path file
     image_join() %>% # joins image
     image_animate(fps=1) %>% # animates, can opt for number of loops
@@ -549,7 +549,7 @@ if(!file.exists("../GIF/Total.gif")) {
 # Disabling the cores on the device when the process ends
 endCluster()
 
-setwd("..")# Setting path
+setwd("./Data/")# Setting path
 
 #######################################################
 # Creation and display of a Shiny App in RStudio
@@ -730,7 +730,7 @@ server <- function(input, output, session) {
   output$preImage <- renderImage({
     # Created the file name from the information of the radio Buttons in order to 
     # display the *.GIF image to the whole period of time for a type of water body
-    filename_gif <- normalizePath(file.path('./GIF',
+    filename_gif <- normalizePath(file.path('./GIF/',
                                         paste(input$typeInput1, '.gif', sep='')))
     
     # Return a list containing the filename and alt text
